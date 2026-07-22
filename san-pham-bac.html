@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mizuno Alpha Elite AS TF (BẠC) - Thiện Pod Store</title>
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/header-footer.css">
+    <link rel="stylesheet" href="css/product-detail.css">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; background: #fff; color: #111; }
+        
+        .product-container { max-width: 1200px; margin: 40px auto; display: flex; gap: 40px; padding: 0 20px; align-items: flex-start; }
+        .thumb-list { display: flex; flex-direction: column; gap: 10px; }
+        .thumb-item { width: 75px; height: 75px; border: 2px solid #ddd; border-radius: 4px; cursor: pointer; object-fit: cover; transition: 0.2s; }
+        .thumb-item.active, .thumb-item:hover { border-color: #000; }
+        
+        .main-img-box {
+    flex: 1;
+    width: 100%;
+    max-width: 480px;
+    height: 480px; /* Cố định khung vuông */
+    background: #fff; /* Nền trắng trọn vẹn */
+    border-radius: 6px;
+    overflow: hidden; /* Cắt gọn phần ảnh thừa ra ngoài khung */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-img-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Phủ kín khung hình, tràn viền cực đẹp */
+}
+        .product-info { flex: 1.3; }
+        .product-info h1 { font-size: 24px; font-weight: bold; margin-bottom: 8px; line-height: 1.3; }
+        .sku-box { font-size: 13px; color: #666; margin-bottom: 15px; }
+        .price-tag { font-size: 24px; font-weight: bold; color: #d32f2f; margin-bottom: 20px; }
+
+        .promo-box { border: 1px dashed #d32f2f; background: #fffdfd; padding: 12px 15px; border-radius: 6px; margin-bottom: 20px; font-size: 13px; }
+        .promo-title { font-weight: bold; color: #d32f2f; margin-bottom: 5px; }
+
+        .select-row { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+        .custom-select { padding: 10px 12px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; background: #fff; width: 220px; cursor: pointer; outline: none; }
+
+        .qty-cart-row { display: flex; gap: 15px; align-items: center; margin-bottom: 15px; }
+        .qty-box { display: flex; align-items: center; border: 1px solid #ccc; border-radius: 4px; overflow: hidden; background: #fff; }
+        .qty-box button { width: 35px; height: 42px; background: #f9f9f9; border: none; cursor: pointer; font-size: 16px; }
+        .qty-box input { width: 45px; height: 42px; text-align: center; border: none; font-size: 14px; outline: none; }
+        
+        .btn-add { flex: 1; height: 44px; background: #fff; border: 1px solid #000; color: #000; font-weight: bold; border-radius: 4px; cursor: pointer; text-transform: uppercase; font-size: 13px; }
+        .btn-add:hover { background: #f2f2f2; }
+        .btn-buy { width: 100%; height: 46px; background: #d32f2f; color: #fff; border: none; font-weight: bold; font-size: 15px; border-radius: 4px; cursor: pointer; margin-bottom: 15px; text-transform: uppercase; }
+        .btn-buy:hover { background: #b71c1c; }
+        .hotline-text { font-size: 13px; color: #444; margin-bottom: 20px; }
+        .hotline-text span { color: #d32f2f; font-weight: bold; }
+
+        .features-row { display: flex; justify-content: space-between; border-top: 1px dashed #ddd; border-bottom: 1px dashed #ddd; padding: 15px 0; margin-bottom: 20px; font-size: 13px; color: #333; }
+        .feature-item { display: flex; align-items: center; gap: 8px; }
+
+        .wishlist-box { display: inline-flex; align-items: center; gap: 8px; border: 1px solid #e0e0e0; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-size: 13px; color: #0066cc; background: #fff; }
+        .wishlist-box:hover { background: #f9f9f9; }
+
+        footer { background: #000; color: #fff; padding: 50px 20px 20px; margin-top: 60px; font-size: 14px; }
+        .footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 40px; margin-bottom: 40px; }
+        .footer-col h3 { font-size: 16px; margin-bottom: 15px; text-transform: uppercase; }
+        .footer-col p, .footer-col ul { font-size: 13px; color: #aaa; line-height: 1.6; list-style: none; padding: 0; margin: 0; }
+        .footer-col ul li { margin-bottom: 8px; }
+        .footer-col ul li a { color: #aaa; text-decoration: none; }
+        .footer-col ul li a:hover { color: #fff; }
+        .newsletter-form { display: flex; margin-top: 15px; }
+        .newsletter-form input { padding: 10px; border: none; border-radius: 4px 0 0 4px; outline: none; flex: 1; font-size: 13px; }
+        .newsletter-form button { background: #222; color: #fff; border: 1px solid #444; padding: 10px 15px; border-radius: 0 4px 4px 0; cursor: pointer; font-size: 13px; }
+        .footer-bottom { max-width: 1200px; margin: 0 auto; border-top: 1px solid #222; padding-top: 20px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: #888; }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="topbar">
+        <div class="mark">THIỆN<span>POD</span> STORE</div>
+        <nav>
+            <a href="index.html">Trang Chủ</a>
+            <a href="index.html#products">Sản Phẩm</a>
+            <a href="checkout.html">Giỏ hàng</a>
+        </nav>
+    </div>
+
+    <!-- Main Chi Tiết Sản Phẩm -->
+    <div class="product-container">
+        
+        <!-- Cột Ảnh nhỏ bên trái (Ưu tiên ảnh giày bạc ở vị trí đầu) -->
+        <div class="thumb-list">
+            <img src="images/mizuno_bac9.jpg" class="thumb-item active" onclick="switchImage(this, 'images/mizuno_bac9.jpg')" alt="Thumbnail">
+            <img src="images/mizuno_bac6.jpg" class="thumb-item" onclick="switchImage(this, 'images/mizuno_bac6.jpg')" alt="Thumbnail">
+            <img src="images/mizuno_bac7.jpg" class="thumb-item" onclick="switchImage(this, 'images/mizuno_bac7.jpg')" alt="Thumbnail">
+            <img src="images/mizuno_bac8.jpg" class="thumb-item" onclick="switchImage(this, 'images/mizuno_bac8.jpg')" alt="Thumbnail">
+        </div>
+
+        <!-- Ảnh chính to ở giữa -->
+        <div class="main-img-box">
+            <img id="mainImage" src="images/mizuno_bac9.jpg" alt="Mizuno Bạc">
+        </div>
+
+        <!-- Thông tin sản phẩm bên phải -->
+        <div class="product-info">
+            <h1>Mizuno Alpha Elite AS TF (BẠC)</h1>
+            <div class="sku-box">Thương hiệu: <b>THIỆN POD</b> | Mã sản phẩm: <b>TP-86216</b></div>
+            <div class="price-tag">1.200.000đ</div>
+
+            <div class="promo-box">
+                <div class="promo-title">🎁 ƯU ĐÃI HÔM NAY</div>
+                <div>• Miễn phí Ship cho đơn hàng từ 499.000đ</div>
+                <div>• Đổi trả trong 7 ngày nếu có lỗi từ nhà sản xuất</div>
+            </div>
+
+            <!-- Các ô chọn dropdown -->
+            <div class="select-row">
+                <select class="custom-select">
+                    <option>TP-86216</option>
+                </select>
+                <select class="custom-select" onchange="if(this.value) location.href=this.value;">
+                    <option value="san-pham-xanh.html">Xanh Dương</option>
+                    <option value="san-pham-bac.html" selected>Bạc</option>
+                    <option value="san-pham-trang.html">Trắng</option>
+                    <option value="san-pham-do.html">Đỏ</option>
+                </select>
+                <select class="custom-select">
+                    <option>Size 39</option>
+                    <option>Size 40</option>
+                    <option>Size 41</option>
+                    <option>Size 42</option>
+                    <option>Size 43</option>
+                </select>
+            </div>
+
+            <div class="qty-cart-row">
+                <span style="font-size: 13px; font-weight: bold;">Số lượng:</span>
+                <div class="qty-box">
+                    <button onclick="updateQty(-1)">-</button>
+                    <input type="text" id="quantityInput" value="1" readonly>
+                    <button onclick="updateQty(1)">+</button>
+                </div>
+                <button class="btn-add">Thêm vào giỏ</button>
+            </div>
+
+            <button class="btn-buy">Mua ngay</button>
+            
+            <div class="hotline-text">Gọi đặt mua: <span>086.777.2190</span> (8:30 - 17:30)</div>
+
+            <div class="features-row">
+                <div class="feature-item">📦 Giao hàng toàn quốc</div>
+                <div class="feature-item">🔄 Miễn phí đổi trả</div>
+                <div class="feature-item">🛡️ Cam kết chính hãng</div>
+            </div>
+
+            <div class="wishlist-box">
+                <span>🤍</span> Thêm vào yêu thích
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Chân trang Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>THIỆN POD STORE</h3>
+                <p>Địa chỉ: 205 Đường Thiện Pod, Cẩm Phả, Tỉnh Quảng Ninh</p>
+                <p>Số điện thoại: 086.777.2190</p>
+                <p>Email: thienpodstore@gmail.com</p>
+            </div>
+            <div class="footer-col">
+                <h3>Về chúng tôi</h3>
+                <ul>
+                    <li><a href="#">Giới thiệu</a></li>
+                    <li><a href="#">Blog thể thao</a></li>
+                    <li><a href="#">Hệ thống cửa hàng</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Hỗ trợ khách hàng</h3>
+                <ul>
+                    <li><a href="#">Chính sách bảo hành</a></li>
+                    <li><a href="#">Liên hệ</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Đăng ký nhận tin</h3>
+                <p>Nhận thông tin khuyến mãi đặc biệt từ chúng tôi.</p>
+                <div class="newsletter-form">
+                    <input type="email" placeholder="Nhập địa chỉ email">
+                    <button>Đăng ký</button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>© 2026 Thiện Pod Store. Tất cả các quyền được bảo lưu.</div>
+            <div>Hỗ trợ thanh toán: VISA, MasterCard, MOMO, ZaloPay</div>
+        </div>
+    </footer>
+
+    <script>
+        function switchImage(el, src) {
+            document.getElementById('mainImage').src = src;
+            document.querySelectorAll('.thumb-item').forEach(i => i.classList.remove('active'));
+            el.classList.add('active');
+        }
+
+        function updateQty(change) {
+            let input = document.getElementById('quantityInput');
+            let val = parseInt(input.value) + change;
+            if (val >= 1) input.value = val;
+        }
+    </script>
+</body>
+</html>

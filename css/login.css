@@ -1,0 +1,189 @@
+/* --- LOGIN CSS - ĐÃ BỔ SUNG ĐẦY ĐỦ FORM & NÚT BẤM --- */
+
+.login-split-body { 
+    margin: 0; 
+    padding: 0; 
+    background: var(--paper); 
+    min-height: 100vh; 
+    font-family: 'Inter', sans-serif; 
+}
+
+.login-split-container { 
+    display: grid; 
+    grid-template-columns: 1.1fr 1.2fr; 
+    min-height: 100vh; 
+    width: 100%; 
+}
+
+.login-left-pane { 
+    background: #0d0d0d; 
+    color: #fff; 
+    padding: 50px 6vw; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between; 
+    position: relative; 
+    overflow: hidden; 
+}
+
+.login-left-pane .top-brand .mark { 
+    font-family: 'Oswald', sans-serif; 
+    font-size: 22px; 
+    font-weight: 700; 
+    color: #fff; 
+}
+
+.login-left-pane .top-brand .mark span { 
+    color: var(--red); 
+}
+
+.login-left-pane .left-content .small-tag { 
+    font-size: 11px; 
+    opacity: 0.6; 
+    margin-bottom: 16px; 
+    letter-spacing: 0.1em; 
+}
+
+.login-left-pane .left-content h1 { 
+    font-family: 'Oswald', sans-serif; 
+    font-size: clamp(32px, 3.8vw, 52px); 
+    line-height: 1.05; 
+    font-weight: 700; 
+    letter-spacing: 0.02em; 
+}
+
+.login-left-pane .stripe-bar { 
+    position: absolute; 
+    top: 0; 
+    right: 0; 
+    bottom: 0; 
+    width: 18%; 
+    background: repeating-linear-gradient(135deg, var(--red) 0 20px, var(--red-dark) 20px 40px); 
+}
+
+.login-right-pane { 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    padding: 40px 6vw; 
+    background: var(--paper); 
+}
+
+.auth-card-split { 
+    width: 100%; 
+    max-width: 420px; 
+}
+
+.auth-card-split .sub-title { 
+    font-size: 11px; 
+    opacity: 0.5; 
+    margin-bottom: 6px; 
+    letter-spacing: 0.1em; 
+}
+
+.auth-card-split h2 { 
+    font-family: 'Oswald', sans-serif; 
+    font-size: 28px; 
+    margin-bottom: 6px; 
+    letter-spacing: 0.02em; 
+}
+
+.auth-card-split .desc { 
+    font-size: 13.5px; 
+    opacity: 0.7; 
+    margin-bottom: 28px; 
+}
+
+/* Định dạng Form & Ô nhập liệu */
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--ink);
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group input[type="email"],
+.form-group input[type="tel"] {
+    width: 100%;
+    padding: 13px 15px;
+    border: 1px solid var(--line);
+    background: #fff;
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    transition: border-color .15s;
+    box-sizing: border-box;
+    border-radius: 0;
+}
+
+.form-group input:focus {
+    border-color: var(--red);
+}
+
+.form-row-between { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    font-size: 13px; 
+    margin-bottom: 24px; 
+}
+
+.checkbox-label { 
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+    cursor: pointer; 
+}
+
+.forgot-link { 
+    color: var(--red); 
+}
+
+/* Định dạng Nút bấm Đăng nhập */
+.btn-primary { 
+    display: inline-flex; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 10px; 
+    padding: 15px 22px; 
+    background: var(--red); 
+    color: #fff; 
+    border: none; 
+    font-family: 'Oswald', sans-serif; 
+    font-size: 14px; 
+    letter-spacing: 0.12em; 
+    cursor: pointer; 
+    transition: background .2s; 
+    text-transform: uppercase;
+}
+
+.btn-primary:hover { 
+    background: var(--red-dark); 
+}
+
+.auth-switch { 
+    text-align: center; 
+    margin-top: 24px; 
+    font-size: 13px; 
+}
+
+.auth-switch span { 
+    opacity: 0.5; 
+    display: block; 
+    margin-bottom: 12px; 
+    font-size: 11px;
+    letter-spacing: 0.1em;
+}
+
+.auth-switch a { 
+    color: var(--red); 
+    font-weight: 600; 
+}

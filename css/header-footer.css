@@ -1,0 +1,60 @@
+header { background-color: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
+.nav-container { max-width: 1200px; margin: 0 auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
+.logo { font-size: 24px; font-weight: bold; color: #ff4242; font-family: 'Oswald', sans-serif; }
+.nav-links a { margin-left: 20px; color: #555; font-weight: 500; }
+.nav-links a:hover { color: var(--red); }
+
+.topbar { display: flex; justify-content: space-between; align-items: center; padding: 18px 5vw; font-family: 'Oswald', sans-serif; font-size: 14px; letter-spacing: 0.14em; border-bottom: 1px solid var(--line); position: relative; z-index: 5; background: var(--paper); }
+.topbar .mark { font-weight: 700; font-size: 20px; }
+.topbar .mark span { color: var(--red); }
+.topbar nav { display: flex; align-items: center; gap: 28px; }
+.topbar nav a { opacity: 0.8; transition: .15s; }
+.topbar nav a:hover { opacity: 1; color: var(--red); }
+.topbar .steps { display: flex; gap: 8px; font-size: 12px; opacity: 0.6; }
+.topbar .steps .active { color: var(--red); opacity: 1; font-weight: 600; }
+
+.icon-btn { position: relative; display: inline-flex; align-items: center; gap: 6px; padding: 8px 12px; border: 1px solid var(--line); background: #fff; font-size: 12.5px; letter-spacing: 0.08em; transition: border-color .15s; }
+.icon-btn:hover { border-color: var(--red); }
+.cart-count { display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; padding: 0 4px; background: var(--red); color: #fff; border-radius: 100px; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; }
+
+footer { background-color: #222; color: #fff; padding: 30px 20px; margin-top: 40px; text-align: center; }
+.footer-content { max-width: 1200px; margin: 0 auto; }
+.footer-full { background: var(--ink); color: #fff; padding: 60px 5vw 26px; }
+.footer-full .footer-grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1.3fr; gap: 44px; margin-bottom: 44px; }
+.footer-full .brand-col .logo { font-size: 26px; margin-bottom: 18px; }
+.footer-full .brand-col .logo span { color: var(--red); }
+.footer-full .brand-col .contact-line { display: flex; gap: 10px; font-size: 13px; opacity: 0.8; margin-bottom: 12px; }
+.footer-full .brand-col .contact-line svg { width: 15px; height: 15px; flex-shrink: 0; margin-top: 2px; }
+.footer-full .brand-col .disclaimer { font-size: 11.5px; opacity: 0.45; margin-top: 18px; max-width: 34ch; }
+.footer-full h4 { font-size: 13px; letter-spacing: 0.1em; margin-bottom: 18px; opacity: 0.6; }
+.footer-full .link-col a { display: block; font-size: 13.5px; opacity: 0.8; margin-bottom: 12px; transition: .15s; }
+.footer-full .link-col a:hover { opacity: 1; color: var(--red); }
+.footer-full .newsletter-col p { font-size: 13px; opacity: 0.7; margin-bottom: 16px; }
+.footer-full .newsletter-row { display: flex; gap: 8px; margin-bottom: 20px; }
+.footer-full .newsletter-row input { flex: 1; padding: 12px 14px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); color: #fff; font-size: 13px; outline: none; }
+.footer-full .newsletter-row input:focus { border-color: var(--red); }
+.footer-full .newsletter-row button { padding: 0 20px; background: #fff; color: var(--ink); border: none; font-size: 12.5px; cursor: pointer; }
+.footer-full .newsletter-row button:hover { background: var(--red); color: #fff; }
+.footer-full .social-row { display: flex; gap: 10px; }
+.footer-full .social-row a { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.08); transition: .2s; }
+.footer-full .social-row a:hover { background: var(--red); }
+.footer-full .social-row svg { width: 16px; height: 16px; }
+.footer-full .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; padding-top: 26px; border-top: 1px solid rgba(255,255,255,0.12); }
+.footer-full .payment-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.footer-full .payment-badge { padding: 6px 12px; background: #fff; color: var(--ink); font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; border-radius: 3px; }
+.footer-full .trust-badge { display: flex; align-items: center; gap: 8px; font-size: 11px; opacity: 0.6; font-family: 'IBM Plex Mono', monospace; }
+.footer-full .trust-badge svg { width: 20px; height: 20px; }
+
+.btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 22px; background: var(--red); color: #fff; border: none; font-family: 'Oswald', sans-serif; font-size: 13px; letter-spacing: 0.12em; cursor: pointer; transition: background .2s; }
+.btn-primary:hover { background: var(--red-dark); }
+.btn-primary:disabled { background: #c9c9c9; cursor: not-allowed; }
+
+.toast { position: fixed; top: 24px; right: 24px; background: var(--ink); color: #fff; padding: 14px 20px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; transform: translateX(120%); transition: transform .3s; z-index: 50; max-width: 280px; }
+.toast.show { transform: translateX(0); }
+.float-contact { position: fixed; right: 20px; bottom: 24px; z-index: 40; display: flex; flex-direction: column; gap: 10px; }
+.float-contact a { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 16px rgba(0,0,0,0.25); transition: transform .15s; }
+.float-contact a:hover { transform: scale(1.08); }
+.float-contact a svg { width: 22px; height: 22px; }
+.float-contact .call { background: var(--red); }
+.float-contact .chat { background: #1D3E7C; }
+.float-contact .message { background: #1F5C3F; }

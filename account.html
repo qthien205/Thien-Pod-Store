@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang tài khoản - Thiệnpod Store</title>
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/header-footer.css">
+    <style>
+        .account-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 15px;
+        }
+        .breadcrumb {
+            font-size: 13px;
+            color: #777;
+            margin-bottom: 25px;
+        }
+        .breadcrumb a {
+            color: #777;
+            text-decoration: none;
+        }
+        .account-layout {
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+        }
+        /* Cột trái: Menu tài khoản */
+        .account-sidebar {
+            width: 280px;
+            flex-shrink: 0;
+            border-right: 1px solid #eee;
+            padding-right: 20px;
+        }
+        .account-sidebar h3 {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #111;
+        }
+        .account-sidebar p {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .account-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .account-menu li {
+            margin-bottom: 12px;
+        }
+        .account-menu a {
+            text-decoration: none;
+            font-size: 14px;
+            color: #444;
+            display: block;
+            transition: color 0.2s;
+        }
+        .account-menu a.active, .account-menu a:hover {
+            color: var(--red, #d32f2f);
+            font-weight: bold;
+        }
+        .logout-btn {
+            background: none;
+            border: none;
+            color: #d32f2f;
+            cursor: pointer;
+            padding: 0;
+            font-size: 14px;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        /* Cột phải: Nội dung thông tin */
+        .account-content {
+            flex-grow: 1;
+        }
+        .account-content h2 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #111;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        .info-group {
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: #333;
+        }
+        .info-group strong {
+            display: inline-block;
+            width: 130px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Topbar / Header (Cậu có thể dùng chung header của store) -->
+    <div class="topbar">
+        <div class="mark"><a href="index.html">THIỆN<span>POD</span> STORE</a></div>
+    </div>
+
+    <div class="account-container">
+        <div class="breadcrumb">
+            <a href="index.html">Trang chủ</a> / Trang khách hàng
+        </div>
+
+        <div class="account-layout">
+            <!-- Cột trái -->
+            <div class="account-sidebar">
+                <h3>TRANG TÀI KHOẢN</h3>
+                <p id="welcomeUser">Xin chào, khách hàng!</p>
+                <ul class="account-menu">
+    <li><a href="#" class="active">Thông tin tài khoản</a></li>
+    <li><a href="orders.html">Đơn hàng của bạn</a></li>
+    <li><a href="change-password.html">Đổi mật khẩu</a></li>
+    <li><a href="addresses.html">Sổ địa chỉ (0)</a></li>
+    <!-- THÊM DÒNG NÀY ĐỂ ĐI VỀ TRANG CHÍNH -->
+    <li style="margin-top: 15px; border-top: 1px dashed #ddd; padding-top: 15px;">
+        <a href="index.html" style="color: #2563eb; font-weight: bold;"><i class="fa-solid fa-arrow-left"></i> Quay về trang chủ</a>
+    </li>
+</ul>
+                <button type="button" class="logout-btn" id="logoutBtn">Đăng xuất</button>
+            </div>
+
+            <!-- Cột phải -->
+            <div class="account-content">
+                <h2>THÔNG TIN TÀI KHOẢN</h2>
+                <div class="info-group">
+                    <strong>Họ tên:</strong> <span id="profileName">Đang cập nhật...</span>
+                </div>
+                <div class="info-group">
+                    <strong>Email:</strong> <span id="profileEmail">Đang cập nhật...</span>
+                </div>
+                <div class="info-group">
+                    <strong>Số điện thoại:</strong> <span id="profilePhone">Đang cập nhật...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Lấy thông tin user đã đăng nhập từ localStorage (ví dụ lưu lúc đăng nhập thành công)
+            // Cậu có thể điều chỉnh key cho khớp với code đăng nhập thực tế của cậu (ví dụ: 'currentUser', 'loggedUser',...)
+            let loggedInUser = JSON.parse(localStorage.getItem('currentUser')) || JSON.parse(localStorage.getItem('user'));
+
+            if (!loggedInUser) {
+                // Nếu chưa đăng nhập mà truy cập trực tiếp trang này, có thể đá về trang đăng nhập hoặc index
+                alert('Vui lòng đăng nhập để xem thông tin tài khoản!');
+                window.location.href = 'index.html'; // Hoặc 'login.html'
+                return;
+            }
+
+            // Đưa dữ liệu lên giao diện
+            document.getElementById('welcomeUser').textContent = `Xin chào, ${loggedInUser.name || loggedInUser.fullName || 'Khách'} !`;
+            document.getElementById('profileName').textContent = loggedInUser.name || loggedInUser.fullName || 'Chưa cập nhật';
+            document.getElementById('profileEmail').textContent = loggedInUser.email || 'Chưa cập nhật';
+            document.getElementById('profilePhone').textContent = loggedInUser.phone || 'Chưa cập nhật';
+
+            // Xử lý nút Đăng xuất
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', () => {
+                    localStorage.removeItem('currentUser');
+                    localStorage.removeItem('user');
+                    alert('Đã đăng xuất tài khoản thành công!');
+                    window.location.href = 'index.html';
+                });
+            }
+        });
+    </script>
+</body>
+</html>

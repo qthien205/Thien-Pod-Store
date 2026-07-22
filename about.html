@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giới Thiệu - Thiện Pod Store</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background-color: #fff;
+            color: #222;
+            line-height: 1.6;
+        }
+        /* Thanh thông báo freeship trên cùng */
+        .header-top-bar {
+            background-color: #111;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            font-size: 13px;
+            font-weight: bold;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        /* Navbar chính */
+        .main-navbar {
+            background-color: #fff;
+            border-bottom: 1px solid #eee;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 37px;
+            z-index: 999;
+        }
+        .nav-logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: #111;
+            letter-spacing: 1px;
+            text-decoration: none;
+        }
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+            align-items: center;
+        }
+        .nav-menu li a {
+            text-decoration: none;
+            color: #222;
+            font-size: 14px;
+            font-weight: bold;
+            transition: color 0.2s;
+        }
+        .nav-menu li a:hover, .nav-menu li a.active {
+            color: #d32f2f;
+        }
+        .nav-icons {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        .nav-icons a {
+            text-decoration: none;
+            color: #222;
+            font-size: 16px;
+            position: relative;
+        }
+        .cart-badge {
+            background-color: #1a56db;
+            color: #fff;
+            font-size: 11px;
+            padding: 1px 6px;
+            border-radius: 50%;
+            position: absolute;
+            top: -8px;
+            right: -10px;
+        }
+
+        /* Phần Breadcrumb & Tiêu đề đầu trang */
+        .page-title-section {
+            padding: 20px 0;
+            border-bottom: 1px solid #eee;
+            background-color: #fff;
+        }
+        .container-fluid {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .breadcrumb {
+            font-size: 13px;
+            color: #777;
+            margin-bottom: 15px;
+        }
+        .breadcrumb a {
+            color: #777;
+            text-decoration: none;
+        }
+        .breadcrumb a:hover {
+            color: #d32f2f;
+        }
+        
+        /* Nội dung chính */
+        .content-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        h1 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #111;
+            line-height: 1.3;
+        }
+        .intro-text {
+            font-size: 15px;
+            color: #333;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        .intro-text a {
+            color: #0056b3;
+            text-decoration: none;
+        }
+        .intro-text a:hover {
+            text-decoration: underline;
+        }
+        .history-banner {
+            width: 100%;
+            height: auto;
+            border-radius: 6px;
+            margin-bottom: 25px;
+            display: block;
+        }
+        .sub-intro {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 30px;
+        }
+        h2 {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            color: #111;
+            border-left: 4px solid #d32f2f;
+            padding-left: 10px;
+        }
+        p {
+            margin-bottom: 15px;
+            color: #333;
+        }
+        ul {
+            margin-bottom: 20px;
+            padding-left: 25px;
+        }
+        li {
+            margin-bottom: 8px;
+            color: #444;
+        }
+        .highlight-box {
+            background: #f9f9f9;
+            border-left: 4px solid #333;
+            padding: 15px 20px;
+            margin: 20px 0;
+            font-style: italic;
+        }
+        .back-home {
+            display: inline-block;
+            margin-top: 40px;
+            padding: 10px 20px;
+            background: #111;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .back-home:hover {
+            background: #d32f2f;
+        }
+
+        /* Phần mới thêm theo ảnh */
+        .extra-section {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #eee;
+        }
+        .extra-section h2 {
+            border-left: none;
+            padding-left: 0;
+            font-size: 24px;
+            color: #111;
+            margin-bottom: 15px;
+        }
+        .cam-ket-list {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 10px;
+        }
+        .cam-ket-list li {
+            margin-bottom: 6px;
+            color: #333;
+        }
+
+        /* Chân trang (Footer) đen chuẩn mẫu */
+        .site-footer {
+            background-color: #0b0b0b;
+            color: #fff;
+            padding: 60px 40px 30px 40px;
+            margin-top: 60px;
+        }
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 40px;
+        }
+        .footer-col h3 {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #fff;
+            letter-spacing: 0.5px;
+        }
+        .footer-col p, .footer-col li a {
+            font-size: 14px;
+            color: #aaa;
+            line-height: 1.8;
+            text-decoration: none;
+        }
+        .footer-col ul {
+            list-style: none;
+            padding: 0;
+        }
+        .footer-col li a:hover {
+            color: #fff;
+        }
+        .footer-logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        .newsletter-form {
+            display: flex;
+            margin-top: 15px;
+            margin-bottom: 20px;
+        }
+        .newsletter-input {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 30px 0 0 30px;
+            outline: none;
+            font-size: 13px;
+            width: 70%;
+        }
+        .newsletter-btn {
+            background-color: #222;
+            color: #fff;
+            border: 1px solid #444;
+            padding: 10px 20px;
+            border-radius: 0 30px 30px 0;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+        }
+        .newsletter-btn:hover {
+            background-color: #d32f2f;
+            border-color: #d32f2f;
+        }
+        .footer-socials {
+            display: flex;
+            gap: 12px;
+            margin-top: 15px;
+        }
+        .social-icon {
+            width: 32px;
+            height: 32px;
+            background: #222;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .social-icon:hover {
+            background: #d32f2f;
+        }
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 40px auto 0 auto;
+            padding-top: 20px;
+            border-top: 1px solid #222;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            font-size: 13px;
+            color: #777;
+        }
+        .footer-badges img {
+            height: 35px;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. Thanh thông báo freeship trên cùng -->
+    <div class="header-top-bar">
+        FREESHIP VỚI ĐƠN HÀNG TỪ 499.000 VNĐ
+    </div>
+
+    <!-- 2. Thanh Menu Điều Hướng Chính -->
+    <nav class="main-navbar">
+        <a href="index.html" class="nav-logo">THIỆN<span style="color: #d32f2f;">POD</span>🐾</a>
+        
+        <ul class="nav-menu">
+            <li><a href="index.html">TRANG CHỦ</a></li>
+            <li><a href="#">MÔN THỂ THAO ▾</a></li>
+            <li><a href="#" style="color: #d32f2f;">⚡ HOT SALE</a></li>
+            <li><a href="#">NAM ▾</a></li>
+            <li><a href="#">NỮ ▾</a></li>
+            <li><a href="#">TRẺ EM ▾</a></li>
+            <li><a href="#">KHÁM PHÁ ▾</a></li>
+        </ul>
+
+        <div class="nav-icons">
+            <a href="#" title="Tìm kiếm">🔍</a>
+            <a href="#" title="Tài khoản">👤</a>
+            <a href="#" title="Giỏ hàng">🛒<span class="cart-badge">2</span></a>
+        </div>
+    </nav>
+
+    <!-- 3. Phần Breadcrumb và Khối giới thiệu chuẩn -->
+    <section class="page-title-section">
+        <div class="container-fluid">
+            <div class="breadcrumb">
+                <a href="index.html">Trang chủ</a> / <span>Thiện Pod Việt Nam – Thương hiệu thể thao chính hãng | 4+ năm</span>
+            </div>
+            
+            <h1 style="font-size: 22px; color: #444; margin-bottom: 20px; font-weight: normal;">
+                Thiện Pod Việt Nam – Thương hiệu thể thao chính hãng | 4+ năm
+            </h1>
+
+            <h1 style="font-size: 32px; color: #111; margin-bottom: 20px;">
+                Thiện Pod Việt Nam – Thương hiệu thời trang thể thao chính hãng tại Việt Nam
+            </h1>
+
+            <p class="intro-text">
+                Nếu bạn đang tìm một thương hiệu thể thao có <strong>lịch sử lâu đời</strong>, chất lượng <strong>đạt chuẩn quốc tế</strong>, thiết kế <strong>hiện đại</strong> và phù hợp với thói quen vận động của người Việt, <strong>Thiện Pod</strong> chính là cái tên đáng để khám phá.
+            </p>
+
+            <p class="intro-text">
+                <a href="index.html">Thiện Pod Việt Nam</a> là đơn vị phân phối sản phẩm thể thao <strong>Thiện Pod chính hãng</strong>, được phát triển với mục tiêu đưa những sản phẩm chất lượng cao đến gần hơn với cộng đồng yêu thể thao tại Việt Nam. Không chỉ là trang phục, Thiện Pod còn mang đến hệ sinh thái đầy đủ từ <strong>giày thể thao, phụ kiện tập luyện</strong> đến những item dành cho cả phong trào lẫn thi đấu chuyên nghiệp.
+            </p>
+        </div>
+    </section>
+
+    <!-- 4. Nội dung chi tiết bài viết (Lịch sử & Sản phẩm) -->
+    <div class="content-container">
+        
+        <!-- Lịch sử thương hiệu & Banner -->
+        <h1>Thiện Pod – Tròn 4 năm lịch sử đồng hành cùng thể thao</h1>
+        
+        <!-- Ảnh banner lịch sử -->
+        <img src="images/thienpod.jpg" alt="Lịch sử thương hiệu" class="history-banner">
+        
+        <p>
+            Ra đời từ năm <strong>2021</strong>, thương hiệu là biểu tượng thể thao với hơn <strong>4 năm phát triển</strong>, gắn liền với nhiều hoạt động tài trợ cho giải đấu lớn, câu lạc bộ và vận động viên chuyên nghiệp.
+        </p>
+        <p>
+            Điểm đặc biệt nằm ở triết lý thương hiệu: <em>“Leave your mark”</em> (Để lại dấu ấn). Mỗi sản phẩm không chỉ phục vụ nhu cầu mặc đẹp, mà còn truyền cảm hứng để người chơi thể thao tự tin bứt phá, nâng cao hiệu suất, khẳng định cá tính trên sân cỏ.
+        </p>
+
+        <hr style="border: 0; border-top: 1px solid #eee; margin: 35px 0;">
+
+        <!-- Danh mục sản phẩm -->
+        <h1>Thiện Pod Store cung cấp những sản phẩm gì?</h1>
+        <p class="sub-intro">Tại thị trường Việt Nam, chúng tôi mang đến danh mục sản phẩm đa dạng, dễ lựa chọn theo nhu cầu:</p>
+
+        <h2>1) Trang phục thể thao – Thiết kế hiện đại, tối ưu vận động</h2>
+        <p>Các dòng quần áo thể thao tại shop được thiết kế phù hợp nhiều bộ môn:</p>
+        <ul>
+            <li>Bóng đá</li>
+            <li>Cầu lông</li>
+            <li>Bóng rổ</li>
+            <li>Tennis</li>
+            <li>Pickleball</li>
+            <li>Bóng chuyền</li>
+            <li>Gym – training – chạy bộ</li>
+            <li>Trang phục vận động hằng ngày</li>
+        </ul>
+        <p><strong>Ưu điểm nổi bật của trang phục:</strong></p>
+        <ul>
+            <li>Chất liệu bền bỉ, phù hợp vận động cường độ cao</li>
+            <li>Thoáng khí – thấm hút mồ hôi tốt, hạn chế bí nóng</li>
+            <li>Form dáng thể thao hiện đại, dễ phối đồ, phù hợp cả khi đi chơi</li>
+        </ul>
+        <div class="highlight-box">
+            => Đây là lý do Thiện Pod thường được cộng đồng yêu thể thao lựa chọn khi cần đồ tập chất lượng nhưng vẫn giữ được phong cách năng động.
+        </div>
+
+        <h2>2) Giày thể thao – Sẵn sàng từ phong trào đến chuyên nghiệp</h2>
+        <p>Không dừng lại ở trang phục, chúng tôi còn phân phối nhiều dòng giày thể thao chính hãng, phù hợp với:</p>
+        <ul>
+            <li>Chơi thể thao theo môn</li>
+            <li>Tập luyện hằng ngày</li>
+            <li>Di chuyển, vận động, lifestyle, sportstyle</li>
+        </ul>
+        <p>Điểm mạnh của giày thể thao tại shop thường được khách hàng đánh giá cao là sự cân bằng giữa: <strong>"độ ổn định – độ bền – cảm giác thoải mái"</strong> giúp người chơi tự tin hơn trong các hoạt động thể thao lẫn đời thường.</p>
+
+        <h2>3) Phụ kiện thể thao – Hoàn thiện "full set"</h2>
+        <p>Thiện Pod còn cung cấp nhiều phụ kiện hỗ trợ tập luyện:</p>
+        <ul>
+            <li>Tất thể thao</li>
+            <li>Balo – túi thể thao</li>
+            <li>Băng bảo vệ</li>
+            <li>Các phụ kiện vận động khác</li>
+        </ul>
+        <p>Nhờ đó, bạn có thể dễ dàng xây dựng một "combo" đồng bộ từ đầu đến chân, phục vụ đúng nhu cầu sử dụng.</p>
+
+        <h2>Vì sao nên chọn Thiện Pod Store?</h2>
+        <ul>
+            <li><strong>Chính hãng 100%:</strong> Có nguồn gốc xuất xứ rõ ràng.</li>
+            <li><strong>Đáp ứng nhiều cấp độ:</strong> Từ người mới bắt đầu đến vận động viên chuyên nghiệp.</li>
+            <li><strong>Tinh thần thể thao:</strong> Hướng tới sự thoải mái, an toàn và tối ưu chuyển động.</li>
+        </ul>
+
+        <!-- PHẦN MỚI THÊM THEO ẢNH YÊU CẦU -->
+        <div class="extra-section">
+            <h2>Mua sản phẩm Thiện Pod chính hãng ở đâu?</h2>
+            <p>Bạn có thể tham khảo và lựa chọn sản phẩm Thiện Pod chính hãng tại Thiện Pod Việt Nam thông qua website và các kênh phân phối chính thức.</p>
+            
+            <p style="margin-top: 15px;"><strong>* Thiện Pod Việt Nam cam kết:</strong></p>
+            <ul class="cam-ket-list">
+                <li>_ Chính hãng – rõ nguồn gốc</li>
+                <li>_ Chất lượng tiêu chuẩn quốc tế</li>
+                <li>_ Phù hợp tập luyện và thi đấu</li>
+            </ul>
+
+            <h2 style="margin-top: 40px;">THIỆN POD – Leave your mark | Để lại dấu ấn của bạn</h2>
+            <p>Dù bạn là người mới bắt đầu tập luyện hay đã chơi thể thao nhiều năm, Thiện Pod luôn muốn đồng hành để mỗi lần ra sân của bạn đều trọn vẹn hơn: <strong>thoải mái hơn – tự tin hơn – bứt phá hơn.</strong></p>
+            <ul class="cam-ket-list" style="margin-top: 15px;">
+                <li>_ Khám phá ngay sản phẩm Thiện Pod chính hãng tại Thiện Pod Việt Nam và bắt đầu hành trình “để lại dấu ấn” của riêng bạn.</li>
+                <li>_ Xem sản phẩm / Nhận tư vấn chọn size – chọn môn ngay hôm nay! 🐾 ⚡</li>
+            </ul>
+        </div>
+
+        <a href="index.html" class="back-home">&lt; Về trang chủ</a>
+    </div>
+
+    <!-- 5. Chân trang (Footer màu đen đúng mẫu) -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <!-- Cột 1: Thông tin liên hệ -->
+            <div class="footer-col">
+                <div class="footer-logo">THIỆN<span style="color: #d32f2f;">POD</span>🐾</div>
+                <p>📍 Địa chỉ: 205 Đường Thiện Pod, Cẩm Phả, Quảng Ninh</p>
+                <p>📞 Số điện thoại: 086.777.2190</p>
+                <p>✉️ Email: thienpod2005@gmail.com</p>
+                <p style="margin-top: 15px; font-size: 12px; color: #777;">
+                    © thienpod.vn thuộc quyền sở hữu của Công ty TNHH ThiệnPod Sport, ĐKKD số 0318892376 cấp ngày 31/03/2025 tại Sở Tài chính Tp. Cẩm Phả
+                </p>
+            </div>
+
+            <!-- Cột 2: Về chúng tôi -->
+            <div class="footer-col">
+                <h3>VỀ CHÚNG TÔI</h3>
+                <ul>
+                    <li><a href="about.html">Về Thiện Pod</a></li>
+                    <li><a href="#">Blog Thiện Pod</a></li>
+                    <li><a href="#">Hệ Thống Cửa Hàng</a></li>
+                </ul>
+            </div>
+
+            <!-- Cột 3: Hỗ trợ khách hàng -->
+            <div class="footer-col">
+                <h3>HỖ TRỢ KHÁCH HÀNG</h3>
+                <ul>
+                    <li><a href="#">Chính sách bảo hành tại Website</a></li>
+                    <li><a href="#">Liên hệ</a></li>
+                </ul>
+            </div>
+
+            <!-- Cột 4: Đăng ký nhận tin -->
+            <div class="footer-col">
+                <h3>ĐĂNG KÝ NHẬN TIN</h3>
+                <p>Bạn muốn nhận khuyến mãi đặc biệt? Đăng ký ngay.</p>
+                <div class="newsletter-form">
+                    <input type="email" placeholder="Nhập địa chỉ email" class="newsletter-input">
+                    <button class="newsletter-btn">Đăng ký</button>
+                </div>
+                <div class="footer-socials">
+                    <a href="#" class="social-icon">f</a>
+                    <a href="#" class="social-icon">z</a>
+                    <a href="#" class="social-icon">▶</a>
+                    <a href="#" class="social-icon">♪</a>
+                    <a href="#" class="social-icon">🛍</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Phần dưới cùng Footer (Logo Bộ Công Thương & Các phương thức thanh toán) -->
+        <div class="footer-bottom">
+            <div>
+                <img src="https://images.dmca.com/Badges/dmca-badge-w100-5x1-01.png?ID=..." alt="DMCA" style="height: 25px; vertical-align: middle;">
+                <span style="margin-left: 10px;">Đã thông báo Bộ Công Thương</span>
+            </div>
+            <div class="footer-badges">
+                <span style="background: #fff; color: #000; padding: 2px 6px; font-weight: bold; font-size: 11px; border-radius: 3px;">VISA</span>
+                <span style="background: #fff; color: #000; padding: 2px 6px; font-weight: bold; font-size: 11px; border-radius: 3px; margin-left: 5px;">MC</span>
+                <span style="background: #a50064; color: #fff; padding: 2px 6px; font-weight: bold; font-size: 11px; border-radius: 3px; margin-left: 5px;">MOMO</span>
+                <span style="background: #008fe5; color: #fff; padding: 2px 6px; font-weight: bold; font-size: 11px; border-radius: 3px; margin-left: 5px;">ZALOPAY</span>
+                <span style="background: #28a745; color: #fff; padding: 2px 6px; font-weight: bold; font-size: 11px; border-radius: 3px; margin-left: 5px;">COD</span>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

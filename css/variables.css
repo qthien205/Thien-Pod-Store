@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap');
+
+:root {
+    --ink: #141414;
+    --paper: #F3F1EC;
+    --red: #C8102E;
+    --red-dark: #8C0B21;
+    --line: rgba(20,20,20,0.14);
+}
+
+*, ::after, ::before { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--paper); color: var(--ink); font-family: 'Inter', sans-serif; overflow-x: hidden; line-height: 1.6; }
+h1, h2, h3, .display { font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 0.01em; }
+.mono { font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em; }
+a { color: inherit; text-decoration: none; }
+img, svg { display: block; }
+button { font-family: inherit; }

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập - Thiện Pod Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #030712;
+        }
+
+        .login-page-bg {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 40px 60px;
+            overflow: hidden;
+            background-color: #030712;
+        }
+
+        .bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: left center;
+            z-index: 1;
+        }
+
+        .bg-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(3, 7, 18, 0.2) 0%, rgba(3, 7, 18, 0.8) 65%);
+            z-index: 2;
+        }
+
+        .login-card-glass {
+            position: relative;
+            z-index: 3;
+            width: 440px;
+            background: rgba(9, 16, 36, 0.78);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 24px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 30px 35px;
+            color: #fff;
+            height: 88vh;
+        }
+
+        .form-header {
+            text-align: center;
+        }
+        .form-header h2 {
+            font-size: 24px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 4px;
+        }
+        .form-header p {
+            font-size: 12px;
+            color: #a0aec0;
+            margin-bottom: 6px;
+        }
+        .divider-icon {
+            color: #3b82f6;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        .input-group {
+            margin-bottom: 12px;
+        }
+        .input-group label {
+            display: block;
+            font-size: 11.5px;
+            font-weight: 600;
+            color: #cbd5e1;
+            margin-bottom: 4px;
+        }
+        .input-field-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .input-field-wrap i.prefix-icon {
+            position: absolute;
+            left: 14px;
+            color: #94a3b8;
+            font-size: 13px;
+        }
+        .input-field-wrap input {
+            width: 100%;
+            padding: 11px 14px 11px 38px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            font-size: 12.5px;
+            outline: none;
+            transition: all 0.2s;
+            background-color: rgba(15, 23, 42, 0.6);
+            color: #fff;
+        }
+        .input-field-wrap input::placeholder {
+            color: #64748b;
+        }
+        .input-field-wrap input:focus {
+            border-color: #3b82f6;
+            background-color: rgba(15, 23, 42, 0.9);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+        }
+        .toggle-password {
+            position: absolute;
+            right: 14px;
+            cursor: pointer;
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
+        .forgot-wrapper {
+            text-align: right;
+            margin-bottom: 14px;
+        }
+        .forgot-wrapper a {
+            font-size: 11.5px;
+            color: #60a5fa;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .forgot-wrapper a:hover {
+            text-decoration: underline;
+        }
+
+        .btn-login-main {
+            width: 100%;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: #fff;
+            border: none;
+            padding: 12px;
+            font-size: 13.5px;
+            font-weight: 700;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+        }
+        .btn-login-main:hover {
+            background: linear-gradient(135deg, #1d4ed8, #1e40af);
+        }
+
+        .or-text {
+            text-align: center;
+            position: relative;
+            margin: 12px 0;
+            font-size: 11px;
+            color: #94a3b8;
+        }
+        .or-text::before, .or-text::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 30%;
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+        .or-text::before { left: 0; }
+        .or-text::after { right: 0; }
+
+        .social-login-group {
+            display: flex;
+            gap: 10px;
+        }
+        .social-btn {
+            flex: 1;
+            padding: 9px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 11.5px;
+            font-weight: 600;
+            color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: background 0.2s;
+        }
+        .social-btn:hover {
+            background: rgba(30, 41, 59, 0.8);
+        }
+        .social-btn img {
+            width: 15px;
+            height: 15px;
+        }
+
+        .signup-redirect {
+            text-align: center;
+            font-size: 11.5px;
+            color: #94a3b8;
+            margin-top: 8px;
+        }
+        .signup-redirect a {
+            color: #60a5fa;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        .signup-redirect a:hover {
+            text-decoration: underline;
+        }
+
+        .form-bottom-security {
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 10px;
+            font-size: 8.5px;
+            color: #94a3b8;
+            font-weight: 700;
+            text-align: center;
+        }
+        .form-bottom-security div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+        .form-bottom-security i {
+            font-size: 13px;
+            color: #60a5fa;
+        }
+
+        @media(max-width: 900px) {
+            .login-page-bg { justify-content: center; padding: 20px; }
+            .login-card-glass { width: 100%; height: auto; }
+            body, html { overflow: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-page-bg">
+        <img src="images/sanpham2.jpg" alt="Background" class="bg-image">
+        <div class="bg-overlay"></div>
+
+        <div class="login-card-glass">
+            <div class="form-header">
+                <h2>ĐĂNG NHẬP</h2>
+                <p>Chào mừng bạn trở lại với Thiện Pod</p>
+                <div class="divider-icon"><i class="fa-solid fa-futbol"></i></div>
+            </div>
+
+            <!-- Đã bỏ action để tránh bị định hướng sai -->
+            <form id="loginForm">
+                <div class="input-group">
+                    <label>Email hoặc số điện thoại</label>
+                    <div class="input-field-wrap">
+                        <i class="fa-regular fa-user prefix-icon"></i>
+                        <!-- Đã thêm id="loginEmail" chính xác khớp với Javascript -->
+                        <input type="text" id="loginEmail" placeholder="Nhập email hoặc số điện thoại" required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Mật khẩu</label>
+                    <div class="input-field-wrap">
+                        <i class="fa-regular fa-lock prefix-icon"></i>
+                        <input type="password" placeholder="Nhập mật khẩu" required id="password-field">
+                        <i class="fa-regular fa-eye-slash toggle-password" onclick="togglePasswordVisibility()"></i>
+                    </div>
+                </div>
+
+                <div class="forgot-wrapper">
+                    <a href="#">Quên mật khẩu?</a>
+                </div>
+
+                <button type="submit" class="btn-login-main">ĐĂNG NHẬP</button>
+            </form>
+
+            <div class="or-text">Hoặc đăng nhập với</div>
+
+            <div class="social-login-group">
+                <button type="button" class="social-btn">
+                    <i class="fa-brands fa-facebook" style="color: #3b82f6; font-size: 14px;"></i> Facebook
+                </button>
+                <button type="button" class="social-btn">
+                    <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google"> Google
+                </button>
+            </div>
+
+            <div class="signup-redirect">
+                Chưa có tài khoản? <a href="register.html">Đăng ký ngay</a>
+            </div>
+
+            <div class="form-bottom-security">
+                <div>
+                    <i class="fa-solid fa-shield"></i>
+                    <span>BẢO MẬT<br>THÔNG TIN</span>
+                </div>
+                <div>
+                    <i class="fa-solid fa-lock"></i>
+                    <span>CAM KẾT<br>AN TOÀN</span>
+                </div>
+                <div>
+                    <i class="fa-solid fa-circle-check"></i>
+                    <span>100%<br>CHÍNH HÃNG</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Hàm ẩn hiện mật khẩu
+        function togglePasswordVisibility() {
+            const passwordField = document.getElementById('password-field');
+            const icon = document.querySelector('.toggle-password');
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            } else {
+                passwordField.type = 'password';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            }
+        }
+
+        // Xử lý sự kiện đăng nhập và chuyển hướng sang account.html
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginForm = document.getElementById('loginForm');
+            
+            if (loginForm) {
+                loginForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const emailInput = document.getElementById('loginEmail');
+                    const email = emailInput ? emailInput.value.trim() : "doquangthien10102000@gmail.com";
+                    
+                    let userData = {
+                        name: "Thiện Đỗ",
+                        email: email,
+                        phone: "0779224960"
+                    };
+
+                    localStorage.setItem('currentUser', JSON.stringify(userData));
+                    localStorage.setItem('isLoggedIn', 'true');
+                    localStorage.setItem('userEmail', email);
+
+                    // Buộc chuyển hướng sang trang quản lý tài khoản
+                    window.location.assign('account.html');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

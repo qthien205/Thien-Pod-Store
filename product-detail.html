@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết sản phẩm - Thiện Pod Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            color: #222;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+        .main-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            display: flex;
+            gap: 30px;
+        }
+        .product-gallery {
+            width: 50%;
+            display: flex;
+            gap: 15px;
+        }
+        .thumbnail-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-height: 450px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+        .thumbnail-list::-webkit-scrollbar {
+            width: 4px;
+        }
+        .thumbnail-list::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 4px;
+        }
+        .thumbnail-item {
+            width: 70px;
+            height: 70px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: pointer;
+            flex-shrink: 0;
+            background: #f9f9f9;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .thumbnail-item:hover {
+            transform: scale(1.05);
+        }
+        .thumbnail-item.active {
+            border-color: #000;
+            border-width: 2px;
+        }
+        .thumbnail-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .main-image-box {
+            flex: 1;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+            background: #f1f1f1;
+            height: 450px;
+        }
+        /* Hiệu ứng chuyển động mượt mà cho ảnh lớn */
+        .main-image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+            opacity: 1;
+        }
+        .main-image-box img.fade-out {
+            opacity: 0;
+            transform: scale(0.98);
+        }
+
+        .product-details {
+            width: 50%;
+        }
+        .product-details h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #111;
+        }
+        .brand-sku {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        .brand-sku span {
+            color: #0066cc;
+        }
+        .price-box {
+            font-size: 26px;
+            font-weight: bold;
+            color: #e53935;
+            margin-bottom: 20px;
+        }
+        .promo-box {
+            border: 1px dashed #ccc;
+            background: #fafafa;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+        .promo-box .title {
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .promo-box ul {
+            margin: 0;
+            padding-left: 18px;
+            font-size: 13px;
+            color: #444;
+            line-height: 1.6;
+        }
+        .options-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .option-select {
+            padding: 8px 12px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background: #fff;
+            cursor: pointer;
+            outline: none;
+            min-width: 130px;
+        }
+        .option-select:focus {
+            border-color: #000;
+        }
+        .quantity-cart-box {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .quantity-selector {
+            display: flex;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            overflow: hidden;
+            height: 42px;
+        }
+        .quantity-selector button {
+            width: 38px;
+            background: #f8f9fa;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .quantity-selector input {
+            width: 45px;
+            text-align: center;
+            border: none;
+            font-size: 15px;
+        }
+        .add-to-cart-btn {
+            height: 42px;
+            padding: 0 25px;
+            background: #fff;
+            color: #000;
+            border: 1px solid #000;
+            border-radius: 4px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .add-to-cart-btn:hover {
+            background: #000;
+            color: #fff;
+        }
+        .buy-now-btn {
+            width: 100%;
+            height: 45px;
+            background: #000;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+        .buy-now-btn:hover {
+            background: #222;
+        }
+        .hotline-text {
+            text-align: center;
+            font-size: 14px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .hotline-text span {
+            font-weight: bold;
+            color: #e53935;
+        }
+        .service-commitments {
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            padding: 12px 0;
+            margin-bottom: 15px;
+            font-size: 13px;
+            color: #555;
+            text-align: center;
+        }
+        .service-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .wishlist-box {
+            font-size: 14px;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+        .wishlist-box i {
+            color: #ccc;
+        }
+        .wishlist-box:hover i {
+            color: #e53935;
+        }
+        .description-section {
+            max-width: 1200px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .tabs-header {
+            display: flex;
+            border-bottom: 2px solid #eee;
+            margin-bottom: 15px;
+        }
+        .tab-item {
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #666;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+        }
+        .tab-item.active {
+            color: #000;
+            border-color: #000;
+        }
+        .tab-content {
+            font-size: 15px;
+            color: #555;
+            line-height: 1.6;
+        }
+        footer.site-footer {
+            background-color: #000;
+            color: #fff;
+            padding: 50px 0 30px 0;
+            margin-top: 40px;
+            font-size: 14px;
+        }
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            padding: 0 20px;
+            gap: 30px;
+        }
+        .footer-col {
+            flex: 1;
+            min-width: 250px;
+        }
+        .footer-col h3 {
+            font-size: 16px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .footer-col ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+        .footer-col ul li a {
+            color: #bbb;
+            text-decoration: none;
+        }
+        .footer-col ul li a:hover {
+            color: #fff;
+        }
+        .footer-info-item {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+            color: #bbb;
+            line-height: 1.5;
+        }
+        .footer-brand-logo {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .newsletter-form {
+            display: flex;
+            margin-top: 15px;
+            border-radius: 25px;
+            overflow: hidden;
+            background: #fff;
+            max-width: 320px;
+        }
+        .newsletter-form input {
+            flex: 1;
+            border: none;
+            padding: 10px 15px;
+            outline: none;
+            font-size: 13px;
+        }
+        .newsletter-form button {
+            background: #222;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 25px;
+        }
+        .social-icons {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        .social-icons a {
+            width: 35px;
+            height: 35px;
+            background: #222;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            text-decoration: none;
+        }
+        .footer-bottom-bar {
+            max-width: 1200px;
+            margin: 40px auto 0 auto;
+            padding: 20px 20px 0 20px;
+            border-top: 1px solid #222;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <header style="background: #111; color: #fff; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center;">
+        <div style="font-size: 20px; font-weight: bold;">THIỆN POD STORE</div>
+        <div>
+            <a href="index.html" style="color: #fff; text-decoration: none; margin-right: 20px;">Trang Chủ</a>
+            <a href="#" style="color: #fff; text-decoration: none; margin-right: 20px;">Sản Phẩm</a>
+            <a href="#" style="color: #fff; text-decoration: none;">Giỏ hàng</a>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- Cột Ảnh sản phẩm (Thumbnail dọc bên trái) -->
+        <div class="product-gallery">
+            <div class="thumbnail-list">
+                <div class="thumbnail-item active" onclick="changeImage(this, 'images/mizuno2.jpg')">
+                    <img src="images/mizuno2.jpg" alt="Thumbnail 1">
+                </div>
+                <div class="thumbnail-item" onclick="changeImage(this, 'images/mizuno_bac1.jpg')">
+                    <img src="images/mizuno_bac1.jpg" alt="Thumbnail 2">
+                </div>
+                <div class="thumbnail-item" onclick="changeImage(this, 'images/mizuno_bac2.jpg')">
+                    <img src="images/mizuno_bac2.jpg" alt="Thumbnail 3">
+                </div>
+                <div class="thumbnail-item" onclick="changeImage(this, 'images/mizuno_bac3.jpg')">
+                    <img src="images/mizuno_bac3.jpg" alt="Thumbnail 4">
+                </div>
+                <div class="thumbnail-item" onclick="changeImage(this, 'images/mizuno_bac4.jpg')">
+                    <img src="images/mizuno_bac4.jpg" alt="Thumbnail 5">
+                </div>
+            </div>
+            <div class="main-image-box">
+                <img id="main-img" src="images/mizuno2.jpg" alt="Ảnh sản phẩm chính">
+            </div>
+        </div>
+
+        <!-- Cột Thông tin chi tiết -->
+        <div class="product-details">
+            <h1 class="product-name">Đang tải...</h1>
+            <div class="brand-sku">Thương hiệu: <span>THIỆN POD</span> | Mã sản phẩm: <span id="product-sku">TP-8621</span></div>
+            <div class="price-box product-price">0đ</div>
+
+            <div class="promo-box">
+                <div class="title"><i class="fa-solid fa-gift" style="color: #e53935;"></i> ƯU ĐÃI HÔM NAY</div>
+                <ul>
+                    <li>Miễn phí Ship cho đơn hàng từ 499.000đ</li>
+                    <li>Đổi trả trong 7 ngày nếu sản phẩm có lỗi từ nhà sản xuất</li>
+                </ul>
+            </div>
+
+            <!-- Khu vực Dropdown lựa chọn -->
+            <div class="options-row">
+                <select class="option-select" id="select-nostyle">
+                    <option value="8621ZX1406">8621ZX1406</option>
+                    <option value="8621ZX1407">8621ZX1407</option>
+                </select>
+                <select class="option-select" id="select-color">
+                    <option value="White/Purple">118 - White/Purple</option>
+                    <option value="Black/Red">119 - Black/Red</option>
+                    <option value="Blue/White">120 - Blue/White</option>
+                </select>
+                <select class="option-select" id="select-size">
+                    <option value="39">39</option>
+                    <option value="40">40</option>
+                    <option value="41">41</option>
+                    <option value="42">42</option>
+                    <option value="43">43</option>
+                    <option value="44">44</option>
+                    <option value="45">45</option>
+                </select>
+            </div>
+
+            <div class="quantity-cart-box">
+                <span style="font-size: 14px; font-weight: bold;">Số lượng:</span>
+                <div class="quantity-selector">
+                    <button onclick="decreaseQty()">-</button>
+                    <input type="text" id="qty-input" value="1" readonly>
+                    <button onclick="increaseQty()">+</button>
+                </div>
+                <button class="add-to-cart-btn">THÊM VÀO GIỎ</button>
+            </div>
+
+            <button class="buy-now-btn">MUA NGAY</button>
+            <div class="hotline-text">Gọi đặt mua: <span>0779.224.960</span> (8:30 - 17:30)</div>
+
+            <div class="service-commitments">
+                <div class="service-item"><i class="fa-solid fa-truck-fast"></i> Giao hàng toàn quốc</div>
+                <div class="service-item"><i class="fa-solid fa-rotate-left"></i> Miễn phí đổi trả</div>
+                <div class="service-item"><i class="fa-solid fa-shield-halved"></i> Cam kết chính hãng</div>
+            </div>
+
+            <div class="wishlist-box">
+                <i class="fa-solid fa-heart"></i> Thêm vào yêu thích
+            </div>
+        </div>
+    </div>
+
+    <!-- KHU VỰC TAB MÔ TẢ -->
+    <div class="description-section">
+        <div class="tabs-header">
+            <div class="tab-item active">Mô tả sản phẩm</div>
+            <div class="tab-item">Chính sách đổi trả</div>
+        </div>
+        <div class="tab-content">
+            Sản phẩm được tích hợp công nghệ tiên tiến, chất liệu cao cấp giúp ôm chân linh hoạt, hỗ trợ lực đẩy tối ưu và bảo vệ toàn diện cho đôi chân của bạn trong suốt quá trình vận động mạnh trên sân cỏ nhân tạo.
+        </div>
+    </div>
+
+    <!-- CHÂN TRANG (FOOTER) -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <div class="footer-brand-logo">THIỆN POD STORE</div>
+                <div class="footer-info-item">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <div>Địa chỉ: 161 Đ. Nguyễn Thị Thập, KDC Him Lam, Phường Tân Hưng, Thành phố Hồ Chí Minh</div>
+                </div>
+                <div class="footer-info-item">
+                    <i class="fa-solid fa-phone"></i>
+                    <div>Số điện thoại: 0779.224.960</div>
+                </div>
+                <div class="footer-info-item">
+                    <i class="fa-solid fa-envelope"></i>
+                    <div>Email: thienpodstore@gmail.com</div>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h3>Về chúng tôi</h3>
+                <ul>
+                    <li><a href="#">Về Thiện Pod</a></li>
+                    <li><a href="#">Blog Thể Thao</a></li>
+                    <li><a href="#">Hệ thống cửa hàng</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3>Hỗ trợ khách hàng</h3>
+                <ul>
+                    <li><a href="#">Chính sách bảo hành tại Website</a></li>
+                    <li><a href="#">Liên hệ</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3>Đăng ký nhận tin</h3>
+                <div style="font-size: 13px; color: #bbb; margin-bottom: 10px;">Bạn muốn nhận khuyến mãi đặc biệt? Đăng ký ngay.</div>
+                <div class="newsletter-form">
+                    <input type="email" placeholder="Nhập địa chỉ email">
+                    <button>Đăng ký</button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+   <script>
+        // Kho dữ liệu tất cả sản phẩm của cửa hàng
+        const productsData = {
+            1: { name: "ÁO POLO THỂ THAO (Tím)", price: "399.000đ", sku: "TP-86211" },
+            2: { name: "ÁO POLO THỂ THAO (Xanh Dương)", price: "399.000đ", sku: "TP-86212" },
+            3: { name: "ÁO POLO THỂ THAO (Xanh Lá)", price: "399.000đ", sku: "TP-86213" },
+            4: { name: "ÁO POLO THỂ THAO (Đen)", price: "399.000đ", sku: "TP-86214" },
+            5: { name: "Mizuno Alpha Elite AS TF (XANH)", price: "1.200.000đ", sku: "TP-86215" },
+            6: { name: "Mizuno Alpha Elite AS TF (BẠC)", price: "1.200.000đ", sku: "TP-86216" },
+            7: { name: "Mizuno Alpha Elite AS TF (TRẮNG)", price: "1.200.000đ", sku: "TP-86217" },
+            8: { name: "GIÀY BÓNG ĐÁ FLASH 6.0.4 (TF)", price: "2.280.000đ", sku: "8621ZX1406" }
+        };
+
+        // Đọc mã ID trên thanh URL (VD: product-detail.html?id=8 -> lấy số 8)
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('id') || '8'; // Mặc định là 8 nếu không có id
+
+        // Tự động đổ dữ liệu tương ứng vào trang web khi load xong
+        document.addEventListener('DOMContentLoaded', () => {
+            const product = productsData[productId] || productsData[8];
+            
+            document.querySelector('.product-name').innerText = product.name;
+            document.querySelector('.product-price').innerText = product.price;
+            document.getElementById('product-sku').innerText = product.sku;
+        });
+
+        // Hàm đổi ảnh mượt mà khi bấm vào các ô nhỏ bên trái
+        function changeImage(element, imgPath) {
+            document.querySelectorAll('.thumbnail-item').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+
+            let mainImg = document.getElementById('main-img');
+            if (mainImg) {
+                mainImg.classList.add('fade-out');
+                setTimeout(() => {
+                    mainImg.src = imgPath;
+                    mainImg.classList.remove('fade-out');
+                }, 200);
+            }
+        }
+
+        function increaseQty() {
+            let input = document.getElementById('qty-input');
+            if (input) input.value = parseInt(input.value) + 1;
+        }
+
+        function decreaseQty() {
+            let input = document.getElementById('qty-input');
+            if (input) {
+                let val = parseInt(input.value);
+                if (val > 1) input.value = val - 1;
+            }
+        }
+    </script>
+</body>
+</html>

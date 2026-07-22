@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh toán đơn hàng - Thiệnpod Store</title>
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/header-footer.css">
+    <link rel="stylesheet" href="css/checkout.css">
+    <style>
+        .checkout-item-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 12px;
+        }
+        .checkout-item-row img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            flex-shrink: 0;
+        }
+        .checkout-item-info {
+            flex-grow: 1;
+            font-size: 13px;
+        }
+        .checkout-item-info .name {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 3px;
+        }
+        .checkout-item-info .desc {
+            color: #777;
+            font-size: 11px;
+            margin-bottom: 3px;
+        }
+        .checkout-item-info .price {
+            font-weight: bold;
+            color: var(--red, #d32f2f);
+        }
+        .qty-box {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background: #fff;
+        }
+        .qty-box button {
+            background: none;
+            border: none;
+            padding: 2px 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .qty-box span {
+            padding: 0 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .remove-item-btn {
+            cursor: pointer;
+            color: #999;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 5px;
+        }
+        .remove-item-btn:hover {
+            color: #d32f2f;
+        }
+        /* Tối ưu khung danh sách sản phẩm và thanh cuộn gọn gàng */
+        .cart-item-list {
+            max-height: 340px;
+            overflow-y: auto;
+            padding-right: 6px;
+        }
+        .cart-item-list::-webkit-scrollbar {
+            width: 5px;
+        }
+        .cart-item-list::-webkit-scrollbar-thumb {
+            background-color: #ccc;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="topbar">
+        <div class="mark"><a href="index.html">THIỆN<span>POD</span> STORE</a></div>
+        <div class="steps">
+            <span>1. GIỎ HÀNG</span> / 
+            <span class="active">2. THANH TOÁN</span> / 
+            <span>3. HOÀN TẤT</span>
+        </div>
+    </div>
+
+    <div class="checkout-layout">
+        <!-- Form thông tin giao hàng -->
+        <div class="checkout-form-col">
+            <div class="section-box">
+                <h2>1. THÔNG TIN GIAO HÀNG</h2>
+                <form id="checkoutForm">
+                    <div class="form-group">
+                        <label>Họ và tên người nhận</label>
+                        <input type="text" id="fullName" placeholder="Nhập đầy đủ họ tên..." required>
+                        <div class="error-text">Vui lòng nhập họ tên</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Số điện thoại</label>
+                        <input type="tel" id="phone" placeholder="Nhập số điện thoại liên hệ..." required>
+                        <div class="error-text">Số điện thoại không hợp lệ</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Email xác nhận đơn hàng</label>
+                        <input type="email" id="email" placeholder="Nhập địa chỉ email..." required>
+                        <div class="error-text">Email không hợp lệ</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Địa chỉ nhận hàng chi tiết</label>
+                        <input type="text" id="address" placeholder="Số nhà, tên đường, phường/xã, quận/huyện..." required>
+                        <div class="error-text">Vui lòng nhập địa chỉ giao hàng</div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="section-box">
+                <h2>2. PHƯƠNG THỨC THANH TOÁN</h2>
+                <div class="pay-methods">
+                    <label class="pay-option">
+                        <input type="radio" name="payMethod" value="cod" checked>
+                        <div>
+                            <strong>Thanh toán khi giao hàng (COD)</strong>
+                            <p>Nhận hàng kiểm tra xong thanh toán tiền mặt.</p>
+                        </div>
+                    </label>
+                    <label class="pay-option">
+                        <input type="radio" name="payMethod" value="banking">
+                        <div>
+                            <strong>Chuyển khoản ngân hàng (QR Code)</strong>
+                            <p>Thanh toán nhanh chóng qua ứng dụng ngân hàng hoặc MoMo.</p>
+                        </div>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tóm tắt đơn hàng -->
+        <div class="checkout-summary-col">
+            <div class="summary-box">
+                <h3>ĐƠN HÀNG CỦA BẠN</h3>
+                <div class="cart-item-list" id="checkoutItemList">
+                    <!-- Danh sách sản phẩm trong giỏ -->
+                </div>
+
+                <div class="discount-row">
+                    <input type="text" id="discountInput" placeholder="Nhập mã giảm giá...">
+                    <button type="button" id="applyDiscountBtn">ÁP DỤNG</button>
+                </div>
+
+                <div class="calc-line">
+                    <span>Tạm tính</span>
+                    <span id="subtotalPrice">0₫</span>
+                </div>
+                <div class="calc-line">
+                    <span>Phí vận chuyển</span>
+                    <span id="shippingFee">30.000₫</span>
+                </div>
+                <div class="calc-line total">
+                    <span>Tổng cộng</span>
+                    <span id="finalTotalPrice" style="color: var(--red);">0₫</span>
+                </div>
+
+                <button type="button" class="btn-primary" id="completeOrderBtn" style="width:100%; margin-top:20px;">ĐẶT HÀNG NGAY</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">Thông báo</div>
+
+    <script src="js/cart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const listEl = document.getElementById('checkoutItemList');
+            const subtotalEl = document.getElementById('subtotalPrice');
+            const finalEl = document.getElementById('finalTotalPrice');
+            const orderBtn = document.getElementById('completeOrderBtn');
+
+            function loadCartSummary() {
+                let cart = JSON.parse(localStorage.getItem('thienpod_cart')) || JSON.parse(localStorage.getItem('cart')) || [];
+                
+                if (cart.length === 0) {
+                    listEl.innerHTML = '<p style="font-size:13px; opacity:0.6; text-align:center; padding: 20px 0;">Giỏ hàng của bạn đang trống.</p>';
+                    subtotalEl.textContent = '0₫';
+                    finalEl.textContent = '30.000₫';
+                    return;
+                }
+
+                let subtotal = 0;
+                listEl.innerHTML = cart.map((item, index) => {
+                    let qty = item.quantity || 1;
+                    subtotal += item.price * qty;
+                    
+                    // Nhận diện linh hoạt các tên thuộc tính ảnh khác nhau
+                    let imgSrc = item.img || item.image || item.imgUrl || item.hinhanh || '';
+
+                    return `
+                        <div class="checkout-item-row">
+                            <img src="${imgSrc}" alt="${item.name}">
+                            <div class="checkout-item-info">
+                                <div class="name">${item.name}</div>
+                                <div class="desc">${item.desc || item.variant || 'Tiêu chuẩn'}</div>
+                                <div class="price">${item.price.toLocaleString('vi-VN')}₫ x ${qty}</div>
+                            </div>
+                            <div class="qty-box">
+                                <button type="button" onclick="updateQty(${index}, -1)">-</button>
+                                <span>${qty}</span>
+                                <button type="button" onclick="updateQty(${index}, 1)">+</button>
+                            </div>
+                            <span class="remove-item-btn" onclick="removeItem(${index})" title="Xóa">✕</span>
+                        </div>
+                    `;
+                }).join('');
+
+                subtotalEl.textContent = subtotal.toLocaleString('vi-VN') + '₫';
+                finalEl.textContent = (subtotal + 30000).toLocaleString('vi-VN') + '₫';
+            }
+
+            window.updateQty = function(index, delta) {
+                let cart = JSON.parse(localStorage.getItem('thienpod_cart')) || JSON.parse(localStorage.getItem('cart')) || [];
+                if (!cart[index].quantity) cart[index].quantity = 1;
+                
+                cart[index].quantity += delta;
+                if (cart[index].quantity <= 0) {
+                    cart.splice(index, 1);
+                }
+
+                localStorage.setItem('thienpod_cart', JSON.stringify(cart));
+                localStorage.setItem('cart', JSON.stringify(cart));
+                loadCartSummary();
+            };
+
+            window.removeItem = function(index) {
+                let cart = JSON.parse(localStorage.getItem('thienpod_cart')) || JSON.parse(localStorage.getItem('cart')) || [];
+                cart.splice(index, 1);
+
+                localStorage.setItem('thienpod_cart', JSON.stringify(cart));
+                localStorage.setItem('cart', JSON.stringify(cart));
+                loadCartSummary();
+            };
+
+            loadCartSummary();
+
+            if (orderBtn) {
+                orderBtn.addEventListener('click', () => {
+                    const name = document.getElementById('fullName').value.trim();
+                    const phone = document.getElementById('phone').value.trim();
+                    const address = document.getElementById('address').value.trim();
+
+                    if (!name || !phone || !address) {
+                        alert('Vui lòng điền đầy đủ thông tin giao hàng!');
+                        return;
+                    }
+
+                    let cart = JSON.parse(localStorage.getItem('thienpod_cart')) || JSON.parse(localStorage.getItem('cart')) || [];
+                    if (cart.length === 0) {
+                        alert('Giỏ hàng của bạn đang trống!');
+                        return;
+                    }
+
+                    alert('Đặt hàng thành công! Cảm ơn bạn đã mua sắm tại Thiệnpod Store.');
+                    localStorage.removeItem('thienpod_cart');
+                    localStorage.removeItem('cart');
+                    window.location.href = 'index.html';
+                });
+            }
+        });
+    </script>
+</body>
+</html>
