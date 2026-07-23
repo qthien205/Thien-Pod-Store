@@ -137,3 +137,42 @@ function addToCart(productId) {
         });
     }
 }
+const productsData = [
+    { name: "Áo Polo Đỏ Thể Thao", price: "350.000đ", img: "images/logomoi.png" },
+    { name: "Giày Đá Bóng Chính Hãng", price: "1.250.000đ", img: "images/logomoi.png" }
+];
+
+const searchInput = document.getElementById('searchInput');
+const searchDropdown = document.getElementById('searchDropdown');
+
+if (searchInput) {
+    searchInput.addEventListener('input', function() {
+        const keyword = this.value.toLowerCase().trim();
+        if (keyword === '') {
+            searchDropdown.style.display = 'none';
+            return;
+        }
+        const results = productsData.filter(p => p.name.toLowerCase().includes(keyword));
+        if (results.length > 0) {
+            searchDropdown.innerHTML = results.map(p => `
+                <a href="#" class="search-item">
+                    <img src="${p.img}" alt="">
+                    <div>
+                        <div style="font-weight: 500;">${p.name}</div>
+                        <div style="color: #d32f2f; font-size: 13px;">${p.price}</div>
+                    </div>
+                </a>
+            `).join('');
+            searchDropdown.style.display = 'block';
+        } else {
+            searchDropdown.innerHTML = `<div style="padding: 10px 15px; color: #777; font-size: 14px;">Không tìm thấy sản phẩm phù hợp</div>`;
+            searchDropdown.style.display = 'block';
+        }
+    });
+
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.search-container')) {
+            searchDropdown.style.display = 'none';
+        }
+    });
+}

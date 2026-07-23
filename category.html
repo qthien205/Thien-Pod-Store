@@ -15,27 +15,43 @@
         .breadcrumb a:hover { color: #000; }
         .category-banner { width: 100%; height: 320px; object-fit: cover; border-radius: 4px; margin-bottom: 30px; }
         .shop-layout { display: flex; gap: 30px; }
-        .filter-sidebar { width: 250px; flex-shrink: 0; }
+        .filter-sidebar { width: 250px; flex-shrink: 0; background: #fff; padding: 20px; border-radius: 8px; border: 1px solid #eee; height: fit-content; }
         .filter-group { margin-bottom: 25px; }
+        .filter-group:last-child { margin-bottom: 0; }
         .filter-group h3 { font-size: 15px; font-weight: bold; margin-bottom: 12px; text-transform: uppercase; border-bottom: 1px solid #eee; padding-bottom: 8px; }
-        .filter-group label { display: flex; align-items: center; gap: 10px; font-size: 13px; color: #444; margin-bottom: 8px; cursor: pointer; }
+        .filter-group label { display: flex; align-items: center; gap: 10px; font-size: 13px; color: #444; margin-bottom: 10px; cursor: pointer; }
         .shop-content { flex-grow: 1; }
         .shop-header-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
         .shop-title { font-size: 20px; font-weight: bold; text-transform: uppercase; }
-        .sort-box select { padding: 8px 12px; border: 1px solid #ccc; border-radius: 4px; font-size: 13px; background: #fff; cursor: pointer; }
+        .sort-box select { padding: 8px 12px; border: 1px solid #ccc; border-radius: 4px; font-size: 13px; background: #fff; cursor: pointer; outline: none; }
         .product-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-        @media (max-width: 1024px) { .product-grid-4 { grid-template-columns: repeat(3, 1fr); } .filter-sidebar { display: none; } }
-        @media (max-width: 768px) { .product-grid-4 { grid-template-columns: repeat(2, 1fr); } }
+        
+        .product-card {
+            background: #fff; border: 1px solid #eee; border-radius: 6px; padding: 12px; text-align: center; transition: 0.2s; display: flex; flex-direction: column; justify-content: space-between;
+        }
+        .product-card:hover { box-shadow: 0 4px 15px rgba(0,0,0,0.08); transform: translateY(-2px); }
+        .product-card img { width: 100%; height: 180px; object-fit: contain; margin-bottom: 10px; }
+        .product-brand { font-size: 11px; color: #888; text-transform: uppercase; margin-bottom: 4px; }
+        .product-name { font-size: 13px; font-weight: 600; color: #111; margin-bottom: 6px; height: 36px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+        .product-price { font-size: 14px; font-weight: bold; color: #d32f2f; margin-bottom: 10px; }
+
+        @media (max-width: 1024px) { 
+            .product-grid-4 { grid-template-columns: repeat(3, 1fr); } 
+            .filter-sidebar { display: none; } 
+        }
+        @media (max-width: 768px) { 
+            .product-grid-4 { grid-template-columns: repeat(2, 1fr); } 
+        }
     </style>
 </head>
 <body>
 
-    <div class="topbar">
-        <div class="mark">THIỆN<span>POD</span> STORE</div>
-        <nav>
-            <a href="index.html">TRANG CHỦ</a>
-            <a href="index.html#products">SẢN PHẨM</a>
-            <a href="checkout.html">THANH TOÁN</a>
+    <div class="topbar" style="position: sticky; top: 0; z-index: 999; display: flex; justify-content: space-between; align-items: center; padding: 15px 40px; background: #fff; border-bottom: 1px solid #eee; width: 100%; box-sizing: border-box; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+        <div class="mark" style="font-size: 22px; font-weight: bold;">THIỆN<span style="color: #d32f2f;">POD</span> STORE</div>
+        <nav style="display: flex; gap: 30px; align-items: center;">
+            <a href="index.html" style="text-decoration: none; color: #333; font-weight: 600;">TRANG CHỦ</a>
+            <a href="index.html#products" style="text-decoration: none; color: #333; font-weight: 600;">SẢN PHẨM</a>
+            <a href="checkout.html" style="text-decoration: none; color: #333; font-weight: 600;">THANH TOÁN</a>
         </nav>
     </div>
 
@@ -44,27 +60,31 @@
             <a href="index.html">Trang chủ</a> / <span id="breadcrumbName">Danh mục sản phẩm</span>
         </div>
 
-        <img id="categoryBanner" src="images/banner9.jpg" alt="Banner" class="category-banner" style="width: 100%; height: 390px; object-fit: cover;">
+        <img id="categoryBanner" src="images/banner9.jpg" alt="Banner" class="category-banner">
+        
         <div class="shop-layout">
+            <!-- Sidebar bộ lọc giá -->
             <div class="filter-sidebar">
                 <div class="filter-group">
                     <h3>Mức Giá</h3>
-                    <label><input type="checkbox" name="price" value="0-1000000"> Giá dưới 1.000.000đ</label>
+                    <label><input type="checkbox" name="price" value="0-1000000"> Dưới 1.000.000đ</label>
                     <label><input type="checkbox" name="price" value="1000000-2000000"> 1.000.000đ - 2.000.000đ</label>
                     <label><input type="checkbox" name="price" value="2000000-3000000"> 2.000.000đ - 3.000.000đ</label>
                     <label><input type="checkbox" name="price" value="3000000-5000000"> 3.000.000đ - 5.000.000đ</label>
                     <label><input type="checkbox" name="price" value="5000000-7000000"> 5.000.000đ - 7.000.000đ</label>
                     <label><input type="checkbox" name="price" value="7000000-10000000"> 7.000.000đ - 10.000.000đ</label>
-                    <label><input type="checkbox" name="price" value="10000000-up"> Giá trên 10.000.000đ</label>
+                    <label><input type="checkbox" name="price" value="10000000-up"> Trên 10.000.000đ</label>
                 </div>
             </div>
 
+            <!-- Nội dung chính & Sắp xếp -->
             <div class="shop-content">
                 <div class="shop-header-bar">
                     <h1 class="shop-title" id="pageTitle">TẤT CẢ SẢN PHẨM</h1>
                     <div class="sort-box">
                         <span>Sắp xếp: </span>
                         <select id="sortSelect">
+                            <option value="default">Mặc định</option>
                             <option value="az">Tên A → Z</option>
                             <option value="za">Tên Z → A</option>
                             <option value="price-asc">Giá tăng dần</option>
@@ -74,7 +94,7 @@
                 </div>
 
                 <div class="product-grid-4" id="productGrid">
-                    <!-- Sản phẩm sẽ hiện ở đây -->
+                    <!-- Sản phẩm sẽ được render tự động ở đây -->
                 </div>
             </div>
         </div>
@@ -85,7 +105,6 @@
         const urlParams = new URLSearchParams(window.location.search);
         const cat = urlParams.get('cat') || 'all';
 
-        // DỮ LIỆU ĐẦY ĐỦ CÁC DANH MỤC Ở ĐÂY:
         const categoryData = {
             'giay': {
                 name: 'Giày Thể Thao TF',
@@ -106,7 +125,7 @@
                 banner: 'images/banner9.jpg',
                 products: [
                     { name: 'ÁO POLO THỂ THAO KELME', price: 720000, image: 'images/ao1.jpg', code: '8651PL1209' },
-                    { name: 'ÁO THUN THỂ THAO KELME ', price: 500000, image: 'images/ao_den.jpg', code: '8451ZB1251' },
+                    { name: 'ÁO THUN THỂ THAO KELME', price: 500000, image: 'images/ao_den.jpg', code: '8451ZB1251' },
                     { name: 'ÁO THUN THỂ THAO KELME', price: 350000, image: 'images/ao_do.jpg', code: 'TP-AO01' },
                     { name: 'ÁO THUN THỂ THAO KELME', price: 890000, image: 'images/ao_tim.jpg', code: 'TP-AO02' },
                     { name: 'ÁO THUN THỂ THAO KELME', price: 290000, image: 'images/ao_trang.jpg', code: 'TP-AO03' },
@@ -121,12 +140,12 @@
                 products: [
                     { name: 'QUẦN DÀI THỂ THAO KELME', price: 450000, image: 'images/quan1.jpg', code: 'QUAN01' },
                     { name: 'QUẦN SHORT THỂ THAO', price: 250000, image: 'images/quan_short.jpg', code: 'QUAN02' },
-                    { name: 'QUẦN SHORT DỆT KELME - MÃ 8551DK1184', price: 550000, image: 'images/quan_det.jpg', code: 'QUAN03' },
-                    { name: 'QUẦN SHORT THỦ MÔN KELME - MÃ K15Z408', price: 320000, image: 'images/quan_thumon.jpg', code: 'QUAN04' },
-                    { name: 'QUẦN ĐÙI BÓNG ĐÁ KELME - MÃ 7351ZB1255', price: 180000, image: 'images/quan_trang.jpg', code: 'QUAN05' },
-                    { name: 'QUẦN DÀI THỂ THAO - MÃ 3881350', price: 390000, image: 'images/quan_dai.jpg', code: 'QUAN06' },
-                    { name: 'QUẦN DÀI THỂ THAO - MÃ 3891353', price: 290000, image: 'images/quan_dai1.jpg', code: 'QUAN07' },
-                    { name: 'QUẦN DÀI NAM - MÃ 8461CK1103', price: 420000, image: 'images/quan_nam.jpg', code: 'QUAN08' }
+                    { name: 'QUẦN SHORT DỆT KELME', price: 550000, image: 'images/quan_det.jpg', code: 'QUAN03' },
+                    { name: 'QUẦN SHORT THỦ MÔN KELME', price: 320000, image: 'images/quan_thumon.jpg', code: 'QUAN04' },
+                    { name: 'QUẦN ĐÙI BÓNG ĐÁ KELME', price: 180000, image: 'images/quan_trang.jpg', code: 'QUAN05' },
+                    { name: 'QUẦN DÀI THỂ THAO', price: 390000, image: 'images/quan_dai.jpg', code: 'QUAN06' },
+                    { name: 'QUẦN DÀI THỂ THAO', price: 290000, image: 'images/quan_dai1.jpg', code: 'QUAN07' },
+                    { name: 'QUẦN DÀI NAM', price: 420000, image: 'images/quan_nam.jpg', code: 'QUAN08' }
                 ]
             },
             'gang-tay': {
@@ -135,11 +154,11 @@
                 products: [
                     { name: 'GĂNG TAY THỦ MÔN ELITE SPORT', price: 850000, image: 'images/gang_moi4.jpg', code: 'GT01' },
                     { name: 'Găng tay thủ môn Adidas Copa GL Pro', price: 650000, image: 'images/gangtay2.jpg', code: 'GT02' },
-                    { name: 'Găng tay thủ môn GKVN 4 mùa – Hạ Còn Vương Nắng', price: 450000, image: 'images/gangtay3.jpg', code: 'GT03' },
-                    { name: 'Găng tay thủ môn GKVN KĐ màu xanh mint', price: 720000, image: 'images/GKVNKD-XM.jpg', code: 'GT04' },
+                    { name: 'Găng tay thủ môn GKVN 4 mùa', price: 450000, image: 'images/gangtay3.jpg', code: 'GT03' },
+                    { name: 'Găng tay thủ môn GKVN xanh mint', price: 720000, image: 'images/GKVNKD-XM.jpg', code: 'GT04' },
                     { name: 'Găng tay thủ môn GKVN Bụi', price: 550000, image: 'images/GKVN-BUI.jpg', code: 'GT05' },
-                    { name: 'Găng tay thủ môn GKVN 4 mùa – Xuân Yêu Thương', price: 490000, image: 'images/gangtay6.jpg', code: 'GT06' },
-                    { name: 'Găng tay thủ môn Nike Grip 3 đỏ son HQ0256-635', price: 950000, image: 'images/nikegrip.jpg', code: 'GT07' },
+                    { name: 'Găng tay thủ môn GKVN Xuân Yêu Thương', price: 490000, image: 'images/gangtay6.jpg', code: 'GT06' },
+                    { name: 'Găng tay thủ môn Nike Grip 3 đỏ', price: 950000, image: 'images/nikegrip.jpg', code: 'GT07' },
                     { name: 'Găng tay thủ môn Roll Finger', price: 320000, image: 'images/gangtay8.jpg', code: 'GT08' }
                 ]
             },
@@ -148,13 +167,13 @@
                 banner: 'images/banner_balo.jpg',
                 products: [
                     { name: 'BALO THỂ THAO KELME ĐA NĂNG', price: 590000, image: 'images/balo2.jpg', code: 'BL01' },
-                    { name: 'Balo Nike Academy Team đen trắng 22L DA2571-010', price: 420000, image: 'images/balo3.jpg', code: 'BL02' },
-                    { name: 'TÚI ĐEO CHÉO KELME - MÃ 8601BB5118', price: 510000, image: 'images/tuicheo.jpg', code: 'BL03' },
-                    { name: 'BALO KELME - MÃ 8601BB5117', price: 280000, image: 'images/balo5.jpg', code: 'BL04' },
-                    { name: 'BALO KELME - MÃ 8301BB5044', price: 680000, image: 'images/balo6.jpg', code: 'BL05' },
-                    { name: 'TÚI ĐỰNG GIÀY KELME - MÃ 8501BB5090', price: 120000, image: 'images/balo7.jpg', code: 'BL06' },
-                    { name: 'TÚI XÁCH THỂ THAO KELME - MÃ 9876007', price: 750000, image: 'images/balo8.jpg', code: 'BL07' },
-                    { name: 'TÚI ĐEO BAO TỬ KELME - MÃ 8201BB5002', price: 890000, image: 'images/balo9.jpg', code: 'BL08' }
+                    { name: 'Balo Nike Academy Team 22L', price: 420000, image: 'images/balo3.jpg', code: 'BL02' },
+                    { name: 'TÚI ĐEO CHÉO KELME', price: 510000, image: 'images/tuicheo.jpg', code: 'BL03' },
+                    { name: 'BALO KELME', price: 280000, image: 'images/balo5.jpg', code: 'BL04' },
+                    { name: 'BALO KELME CAO CẤP', price: 680000, image: 'images/balo6.jpg', code: 'BL05' },
+                    { name: 'TÚI ĐỰNG GIÀY KELME', price: 120000, image: 'images/balo7.jpg', code: 'BL06' },
+                    { name: 'TÚI XÁCH THỂ THAO KELME', price: 750000, image: 'images/balo8.jpg', code: 'BL07' },
+                    { name: 'TÚI ĐEO BAO TỬ KELME', price: 890000, image: 'images/balo9.jpg', code: 'BL08' }
                 ]
             },
             'bong': {
@@ -162,121 +181,267 @@
                 banner: 'images/banner_bong.jpg',
                 products: [
                     { name: 'BÓNG ĐÁ ĐỘNG LỰC CHÍNH HÃNG', price: 450000, image: 'images/bong1.jpg', code: 'BONG01' },
-                    { name: 'Bóng Adidas UCL League UEFA Champions League League 2026-2027 KE9765 UCL', price: 780000, image: 'images/bong5.jpg', code: 'BONG02' },
-                    { name: 'Bóng Adidas Trionda League Final World Cup 2026 FIFA Quality KE4322', price: 390000, image: 'images/bong6.jpg', code: 'BONG03' },
-                    { name: 'Bóng Nike Academy màu xanh đậm IQ0642-010', price: 520000, image: 'images/bong7.jpg', code: 'BONG04' },
+                    { name: 'Bóng Adidas UCL League Champions League', price: 780000, image: 'images/bong5.jpg', code: 'BONG02' },
+                    { name: 'Bóng Adidas Trionda League World Cup', price: 390000, image: 'images/bong6.jpg', code: 'BONG03' },
+                    { name: 'Bóng Nike Academy xanh đậm', price: 520000, image: 'images/bong7.jpg', code: 'BONG04' },
                     { name: 'Quả bóng đá Akpro AF67 size 5', price: 310000, image: 'images/bong8.jpg', code: 'BONG05' },
-                    { name: 'Bóng Động Lực Victor UHV 2.05 FIFA Quality', price: 290000, image: 'images/bong9.jpg', code: 'BONG06' },
-                    { name: 'Bóng Adidas Trionda League World Cup 2026 JD8045 boxed', price: 480000, image: 'images/bong10.jpg', code: 'BONG07' },
-                    { name: 'Bóng Adidas Trionda Pro World Cup 2026 JD8021', price: 850000, image: 'images/bong11.jpg', code: 'BONG08' }
+                    { name: 'Bóng Động Lực Victor UHV 2.05', price: 290000, image: 'images/bong9.jpg', code: 'BONG06' },
+                    { name: 'Bóng Adidas Trionda League World Cup', price: 480000, image: 'images/bong10.jpg', code: 'BONG07' },
+                    { name: 'Bóng Adidas Trionda Pro World Cup', price: 850000, image: 'images/bong11.jpg', code: 'BONG08' }
                 ]
             }
         };
 
-        document.addEventListener("DOMContentLoaded", () => {
-            const currentCat = categoryData[cat] || {
-                name: 'Tất cả sản phẩm',
-                banner: 'https://images.unsplash.com/photo-1517649763962-0c6232660d02?auto=format&fit=crop&w=1200&q=80',
-                products: []
-            };
+        const currentCat = categoryData[cat] || {
+            name: 'Tất cả sản phẩm',
+            banner: 'https://images.unsplash.com/photo-1517649763962-0c6232660d02?auto=format&fit=crop&w=1200&q=80',
+            products: Object.values(categoryData).flatMap(c => c.products)
+        };
 
-            document.getElementById('breadcrumbName').textContent = currentCat.name;
-            document.getElementById('pageTitle').textContent = currentCat.name.toUpperCase();
-            document.getElementById('categoryBanner').src = currentCat.banner;
+        document.getElementById('breadcrumbName').textContent = currentCat.name;
+        document.getElementById('pageTitle').textContent = currentCat.name.toUpperCase();
+        document.getElementById('categoryBanner').src = currentCat.banner;
 
-            const gridEl = document.getElementById('productGrid');
-            if (currentCat.products.length === 0) {
-                gridEl.innerHTML = `<p style="grid-column: span 4; text-align: center; color: #777; padding: 40px;">Đang cập nhật sản phẩm cho danh mục này...</p>`;
+        const gridEl = document.getElementById('productGrid');
+        const priceCheckboxes = document.querySelectorAll('input[name="price"]');
+        const sortSelect = document.getElementById('sortSelect');
+
+        function renderProducts(productsToRender) {
+            if (productsToRender.length === 0) {
+                gridEl.innerHTML = `<p style="grid-column: span 4; text-align: center; color: #777; padding: 40px;">Không tìm thấy sản phẩm phù hợp với bộ lọc...</p>`;
                 return;
             }
 
             let html = '';
-            currentCat.products.forEach(p => {
+            productsToRender.forEach(p => {
                 html += `
-                    <div style="background: #fff; border: 1px solid #eee; border-radius: 6px; padding: 12px; text-align: center; transition: 0.2s;">
-                        <img src="${p.image}" alt="${p.name}" style="width: 100%; height: 180px; object-fit: contain; margin-bottom: 10px;">
-                        <div style="font-size: 11px; color: #888; text-transform: uppercase; margin-bottom: 4px;">KELME</div>
-                        <div style="font-size: 13px; font-weight: 600; color: #111; margin-bottom: 6px; height: 36px; overflow: hidden;">${p.name}</div>
-                        <div style="font-size: 14px; font-weight: bold; color: #111; margin-bottom: 10px;">${p.price.toLocaleString('vi-VN')}đ</div>
+                    <div class="product-card">
+                        <div>
+                            <img src="${p.image}" alt="${p.name}">
+                            <div class="product-brand">THIENPOD STORE</div>
+                            <div class="product-name">${p.name}</div>
+                        </div>
+                        <div>
+                            <div class="product-price">${p.price.toLocaleString('vi-VN')}đ</div>
+                        </div>
                     </div>
                 `;
             });
             gridEl.innerHTML = html;
-            
-        });
+        }
+
+        function filterAndSortProducts() {
+            let filtered = [...currentCat.products];
+
+            // 1. Lọc theo khoảng giá (Checkbox)
+            const selectedPrices = Array.from(priceCheckboxes)
+                .filter(cb => cb.checked)
+                .map(cb => cb.value);
+
+            if (selectedPrices.length > 0) {
+                filtered = filtered.filter(p => {
+                    return selectedPrices.some(range => {
+                        if (range === '10000000-up') {
+                            return p.price >= 10000000;
+                        } else {
+                            const [min, max] = range.split('-').map(Number);
+                            return p.price >= min && p.price <= max;
+                        }
+                    });
+                });
+            }
+
+            // 2. Sắp xếp sản phẩm
+            const sortVal = sortSelect.value;
+            if (sortVal === 'az') {
+                filtered.sort((a, b) => a.name.localeCompare(b.name));
+            } else if (sortVal === 'za') {
+                filtered.sort((a, b) => b.name.localeCompare(a.name));
+            } else if (sortVal === 'price-asc') {
+                filtered.sort((a, b) => a.price - b.price);
+            } else if (sortVal === 'price-desc') {
+                filtered.sort((a, b) => b.price - a.price);
+            }
+
+            renderProducts(filtered);
+        }
+
+        // Lắng nghe sự kiện thay đổi bộ lọc & sắp xếp
+        priceCheckboxes.forEach(cb => cb.addEventListener('change', filterAndSortProducts));
+        sortSelect.addEventListener('change', filterAndSortProducts);
+
+        // Chạy lần đầu khi tải trang
+        renderProducts(currentCat.products);
     </script>
 
     <!-- FOOTER CHUẨN MẪU -->
-<footer style="background: #000; color: #fff; padding: 50px 0 30px 0; font-family: Arial, sans-serif;">
-    <div style="max-width: 1300px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 40px;">
-        
-        <!-- Cột 1: Thông tin thương hiệu & Công ty -->
-        <div style="flex: 1; min-width: 280px;">
-            <div style="font-size: 26px; font-weight: bold; letter-spacing: 2px; margin-bottom: 20px;">Thiện Pod 🐾</div>
-            <p style="font-size: 13px; line-height: 1.6; color: #ccc; margin-bottom: 12px;">📍 Địa chỉ: 205 Đường Thiện Pod, Cẩm Phả, Quảng Ninh</p>
-            <p style="font-size: 13px; color: #ccc; margin-bottom: 12px;">📞 Số điện thoại: 086.777.2190</p>
-            <p style="font-size: 13px; color: #ccc; margin-bottom: 20px;">✉️ Email: thienpod20050@gmail.com</p>
-            <p style="font-size: 11px; color: #999; line-height: 1.6;">thienpod.vn thuộc quyền sở hữu của Công ty TNHH Active Sport, ĐKKD số 0318892376 cấp ngày 31/03/2025 tại Sở Tài chính TP. Cẩm Phả</p>
-        </div>
-
-        <!-- Cột 2: Về chúng tôi -->
-        <div style="width: 200px;">
-            <h3 style="font-size: 14px; font-weight: bold; text-transform: uppercase; margin-bottom: 20px; letter-spacing: 1px;">Về chúng tôi</h3>
-            <ul style="list-style: none; padding: 0; margin: 0; font-size: 13px; line-height: 2.2; color: #ccc;">
-                <li><a href="#" style="color: #ccc; text-decoration: none;">Về Thiện Pod</a></li>
-                <li><a href="#" style="color: #ccc; text-decoration: none;">Blog Thiện Pod</a></li>
-                <li><a href="#" style="color: #ccc; text-decoration: none;">Hệ Thống Cửa Hàng</a></li>
-            </ul>
-        </div>
-
-        <!-- Cột 3: Hỗ trợ khách hàng -->
-        <div style="width: 220px;">
-            <h3 style="font-size: 14px; font-weight: bold; text-transform: uppercase; margin-bottom: 20px; letter-spacing: 1px;">Hỗ trợ khách hàng</h3>
-            <ul style="list-style: none; padding: 0; margin: 0; font-size: 13px; line-height: 2.2; color: #ccc;">
-                <li><a href="#" style="color: #ccc; text-decoration: none;">Chính sách bảo hành tại Website</a></li>
-                <li><a href="#" style="color: #ccc; text-decoration: none;">Liên hệ</a></li>
-            </ul>
-        </div>
-
-        <!-- Cột 4: Đăng ký nhận tin & Biểu tượng -->
-        <div style="flex: 1; min-width: 280px;">
-            <h3 style="font-size: 14px; font-weight: bold; text-transform: uppercase; margin-bottom: 20px; letter-spacing: 1px;">Đăng ký nhận tin</h3>
-            <p style="font-size: 13px; color: #ccc; margin-bottom: 15px;">Bạn muốn nhận khuyến mãi đặc biệt?<br>Đăng ký ngay.</p>
-            
-            <!-- Ô nhập email -->
-            <div style="display: flex; background: #fff; border-radius: 30px; overflow: hidden; padding: 4px; max-width: 320px; margin-bottom: 20px;">
-                <input type="email" placeholder="Nhập địa chỉ email" style="border: none; outline: none; padding: 8px 15px; flex: 1; font-size: 13px;">
-                <button style="background: #111; color: #fff; border: none; padding: 8px 20px; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 13px;">Đăng ký</button>
+    <footer style="background: #000; color: #fff; padding: 50px 0 30px 0; font-family: Arial, sans-serif; margin-top: 50px;">
+        <div style="max-width: 1300px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 40px;">
+            <div style="flex: 1; min-width: 280px;">
+                <div style="font-size: 26px; font-weight: bold; letter-spacing: 2px; margin-bottom: 20px;">Thiện Pod 🐾</div>
+                <p style="font-size: 13px; line-height: 1.6; color: #ccc; margin-bottom: 12px;">📍 Địa chỉ: 205 Đường Thiện Pod, Cẩm Phả, Quảng Ninh</p>
+                <p style="font-size: 13px; color: #ccc; margin-bottom: 12px;">📞 Số điện thoại: 086.777.2190</p>
+                <p style="font-size: 13px; color: #ccc; margin-bottom: 20px;">✉️ Email: thienpod20050@gmail.com</p>
             </div>
-
-            <!-- Các icon mạng xã hội -->
-            <div style="display: flex; gap: 10px; margin-bottom: 25px;">
-                <a href="#" style="width: 32px; height: 32px; background: #3b5998; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; text-decoration: none; font-size: 14px; font-weight: bold;">f</a>
-                <a href="#" style="width: 32px; height: 32px; background: #0084ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; text-decoration: none; font-size: 12px; font-weight: bold;">Zalo</a>
-                <a href="#" style="width: 32px; height: 32px; background: #ff0000; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; text-decoration: none; font-size: 12px; font-weight: bold;">▶</a>
-                <a href="#" style="width: 32px; height: 32px; background: #25f4ee; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #000; text-decoration: none; font-size: 12px; font-weight: bold;">♪</a>
-                <a href="#" style="width: 32px; height: 32px; background: #ee4d2d; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; text-decoration: none; font-size: 12px; font-weight: bold;">sh</a>
+            <div style="width: 200px;">
+                <h3 style="font-size: 14px; font-weight: bold; text-transform: uppercase; margin-bottom: 20px; letter-spacing: 1px;">Về chúng tôi</h3>
+                <ul style="list-style: none; padding: 0; margin: 0; font-size: 13px; line-height: 2.2; color: #ccc;">
+                    <li><a href="#" style="color: #ccc; text-decoration: none;">Về Thiện Pod</a></li>
+                    <li><a href="#" style="color: #ccc; text-decoration: none;">Blog Thiện Pod</a></li>
+                    <li><a href="#" style="color: #ccc; text-decoration: none;">Hệ Thống Cửa Hàng</a></li>
+                </ul>
             </div>
-
-            <!-- Logo Bộ Công Thương & Thanh toán -->
-            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-                <div style="background: #fff; padding: 5px 10px; border-radius: 4px; display: flex; align-items: center; gap: 5px;">
-                    <span style="color: #003366; font-weight: bold; font-size: 12px;">ONLINE.GOV.VN</span>
-                    <span style="background: #00aaef; color: #fff; font-size: 10px; padding: 2px 4px; font-weight: bold;">ĐÃ THÔNG BÁO</span>
+            <div style="width: 220px;">
+                <h3 style="font-size: 14px; font-weight: bold; text-transform: uppercase; margin-bottom: 20px; letter-spacing: 1px;">Hỗ trợ khách hàng</h3>
+                <ul style="list-style: none; padding: 0; margin: 0; font-size: 13px; line-height: 2.2; color: #ccc;">
+                    <li><a href="#" style="color: #ccc; text-decoration: none;">Chính sách bảo hành</a></li>
+                    <li><a href="#" style="color: #ccc; text-decoration: none;">Liên hệ</a></li>
+                </ul>
+            </div>
+            <div style="flex: 1; min-width: 280px;">
+                <h3 style="font-size: 14px; font-weight: bold; text-transform: uppercase; margin-bottom: 20px; letter-spacing: 1px;">Đăng ký nhận tin</h3>
+                <div style="display: flex; background: #fff; border-radius: 30px; overflow: hidden; padding: 4px; max-width: 320px; margin-bottom: 20px;">
+                    <input type="email" placeholder="Nhập địa chỉ email" style="border: none; outline: none; padding: 8px 15px; flex: 1; font-size: 13px;">
+                    <button style="background: #111; color: #fff; border: none; padding: 8px 20px; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 13px;">Đăng ký</button>
                 </div>
             </div>
-            
-            <div style="display: flex; gap: 8px; margin-top: 15px; flex-wrap: wrap;">
-                <span style="background: #fff; color: #000; padding: 3px 8px; font-size: 11px; font-weight: bold; border-radius: 3px;">VISA</span>
-                <span style="background: #fff; color: #000; padding: 3px 8px; font-size: 11px; font-weight: bold; border-radius: 3px;">MasterCard</span>
-                <span style="background: #fff; color: #000; padding: 3px 8px; font-size: 11px; font-weight: bold; border-radius: 3px;">MoMo</span>
-                <span style="background: #fff; color: #000; padding: 3px 8px; font-size: 11px; font-weight: bold; border-radius: 3px;">ZaloPay</span>
-                <span style="background: #fff; color: #000; padding: 3px 8px; font-size: 11px; font-weight: bold; border-radius: 3px;">COD</span>
-            </div>
-
         </div>
+    </footer>
 
+<!-- HTML cho khối Popup Thông báo Đơn hàng -->
+<div id="live-purchase-popup" class="purchase-popup">
+    <div class="popup-close" onclick="closePopup()">&times;</div>
+    <div class="popup-thumb">
+        <img id="popup-img" src="images/mizuno2.jpg" alt="Sản phẩm">
     </div>
-</footer>
+    <div class="popup-content">
+        <div class="popup-title" id="popup-buyer">Khách hàng vừa mua</div>
+        <div class="popup-product-name" id="popup-product">Tên sản phẩm</div>
+        <div class="popup-time" id="popup-time">Vừa xong</div>
+    </div>
+</div>
+
+<!-- CSS cho Popup Thông báo -->
+<style>
+    .purchase-popup {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        background: #fff;
+        padding: 12px 15px;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        z-index: 9999;
+        max-width: 300px;
+        font-family: Arial, sans-serif;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(20px);
+        transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+        border-left: 4px solid #e53935;
+    }
+
+    .purchase-popup.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .popup-thumb img {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        border-radius: 6px;
+        border: 1px solid #eee;
+    }
+
+    .popup-content {
+        flex: 1;
+        font-size: 13px;
+        line-height: 1.4;
+    }
+
+    .popup-title {
+        font-weight: bold;
+        color: #222;
+    }
+
+    .popup-product-name {
+        color: #0066cc;
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 210px;
+    }
+
+    .popup-time {
+        font-size: 11px;
+        color: #888;
+        margin-top: 2px;
+    }
+
+    .popup-close {
+        position: absolute;
+        top: 4px;
+        right: 8px;
+        font-size: 14px;
+        color: #aaa;
+        cursor: pointer;
+    }
+
+    .popup-close:hover {
+        color: #333;
+    }
+</style>
+
+<!-- JavaScript điều khiển hiệu ứng xuất hiện ngẫu nhiên -->
+<script>
+    // Danh sách dữ liệu mẫu để giả lập đơn hàng thời gian thực
+    const fakeOrders = [
+        { buyer: "Anh Minh (TP.HCM)", product: "Mizuno Alpha Elite AS TF (Xanh)", img: "images/mizuno2.jpg", time: "2 phút trước" },
+        { buyer: "Chị Lan (Hà Nội)", product: "Áo Polo Thể Thao (Tím)", img: "images/mizuno_bac1.jpg", time: "5 phút trước" },
+        { buyer: "Anh Hoàng (Đà Nẵng)", product: "Giày Bóng Đá Flash 6.0.4", img: "images/mizuno_bac2.jpg", time: "10 phút trước" },
+        { buyer: "Bạn Đức (Đồng Nai)", product: "Tất chống trượt thể thao", img: "images/tat_chongtruot.jpg", time: "12 phút trước" },
+        { buyer: "Anh Tuấn (Bình Dương)", product: "Bình đựng nước thể thao 1L", img: "images/binh_nuoc.jpg", time: "15 phút trước" }
+    ];
+
+    function showRandomPurchasePopup() {
+        const popup = document.getElementById('live-purchase-popup');
+        if (!popup) return;
+
+        // Chọn ngẫu nhiên một đơn hàng từ mảng
+        const randomOrder = fakeOrders[Math.floor(Math.random() * fakeOrders.length)];
+
+        // Đổ dữ liệu vào popup
+        document.getElementById('popup-buyer').innerText = randomOrder.buyer + " vừa đặt mua:";
+        document.getElementById('popup-product').innerText = randomOrder.product;
+        document.getElementById('popup-img').src = randomOrder.img;
+        document.getElementById('popup-time').innerText = randomOrder.time;
+
+        // Hiển thị popup
+        popup.classList.add('show');
+
+        // Tự động ẩn sau 5 giây
+        setTimeout(() => {
+            popup.classList.remove('show');
+        }, 5000);
+    }
+
+    function closePopup() {
+        const popup = document.getElementById('live-purchase-popup');
+        if (popup) popup.classList.remove('show');
+    }
+
+    // Thiết lập vòng lặp: Chạy lần đầu sau 4 giây, sau đó cứ mỗi 15 giây hiện một thông báo mới
+    document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(showRandomPurchasePopup, 4000);
+        setInterval(showRandomPurchasePopup, 15000);
+    });
+</script>
+
 </body>
 </html>

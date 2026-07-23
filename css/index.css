@@ -142,3 +142,31 @@
 .code-text { display: inline-block; font-size: 12px; font-weight: bold; color: #333; margin-right: 8px; }
 .copy-btn { background-color: #111; color: #fff; border: none; padding: 7px 14px; font-size: 12px; font-weight: bold; border-radius: 4px; cursor: pointer; transition: background .3s; white-space: nowrap; }
 .copy-btn:hover { background-color: #ff3333; }
+.filter-bar {
+    display: flex;
+    gap: 20px;
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.filter-group label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #555;
+}
+.filter-group select {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+    background: #fff;
+    cursor: pointer;
+}

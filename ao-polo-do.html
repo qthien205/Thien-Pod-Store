@@ -3,36 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mizuno Alpha Elite AS TF (TRẮNG) - Thiện Pod Store</title>
-    <link rel="stylesheet" href="css/variables.css">
-    <link rel="stylesheet" href="css/header-footer.css">
-    <link rel="stylesheet" href="css/product-detail.css">
+    <title>Áo Polo Thể Thao - Thiện Pod Store</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 0; background: #fff; color: #111; }
         
+        .topbar { background: #000; color: #fff; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; }
+        .topbar .mark { font-weight: bold; font-size: 18px; letter-spacing: 1px; }
+        .topbar .mark span { color: #e53935; }
+        .topbar nav a { color: #fff; text-decoration: none; margin-left: 20px; font-size: 14px; }
+        .topbar nav a:hover { color: #e53935; }
+
         .product-container { max-width: 1200px; margin: 40px auto; display: flex; gap: 40px; padding: 0 20px; align-items: flex-start; }
         .thumb-list { display: flex; flex-direction: column; gap: 10px; }
         .thumb-item { width: 75px; height: 75px; border: 2px solid #ddd; border-radius: 4px; cursor: pointer; object-fit: cover; transition: 0.2s; }
         .thumb-item.active, .thumb-item:hover { border-color: #000; }
         
         .main-img-box {
-    flex: 1;
-    width: 100%;
-    max-width: 480px;
-    height: 480px; /* Cố định khung vuông */
-    background: #fff; /* Nền trắng trọn vẹn */
-    border-radius: 6px;
-    overflow: hidden; /* Cắt gọn phần ảnh thừa ra ngoài khung */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+            flex: 1;
+            width: 100%;
+            max-width: 480px;
+            height: 480px;
+            background: #fff;
+            border-radius: 6px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #eee;
+        }
 
-.main-img-box img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Phủ kín khung hình, tràn viền cực đẹp */
-}
+        .main-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
         
         .product-info { flex: 1.3; }
         .product-info h1 { font-size: 24px; font-weight: bold; margin-bottom: 8px; line-height: 1.3; }
@@ -63,6 +67,22 @@
         .wishlist-box { display: inline-flex; align-items: center; gap: 8px; border: 1px solid #e0e0e0; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-size: 13px; color: #0066cc; background: #fff; }
         .wishlist-box:hover { background: #f9f9f9; }
 
+        /* Popup thông báo đơn hàng */
+        .purchase-popup {
+            position: fixed; bottom: 20px; left: 20px; background: #fff; padding: 12px 15px; border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); display: flex; align-items: center; gap: 12px; z-index: 9999;
+            max-width: 300px; opacity: 0; visibility: hidden; transform: translateY(20px);
+            transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s; border-left: 4px solid #e53935;
+        }
+        .purchase-popup.show { opacity: 1; visibility: visible; transform: translateY(0); }
+        .popup-thumb img { width: 50px; height: 50px; object-fit: cover; border-radius: 6px; border: 1px solid #eee; }
+        .popup-content { flex: 1; font-size: 13px; line-height: 1.4; }
+        .popup-title { font-weight: bold; color: #222; }
+        .popup-product-name { color: #0066cc; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 210px; }
+        .popup-time { font-size: 11px; color: #888; margin-top: 2px; }
+        .popup-close { position: absolute; top: 4px; right: 8px; font-size: 14px; color: #aaa; cursor: pointer; }
+
+        /* Footer Styles */
         footer { background: #000; color: #fff; padding: 50px 20px 20px; margin-top: 60px; font-size: 14px; }
         .footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 40px; margin-bottom: 40px; }
         .footer-col h3 { font-size: 16px; margin-bottom: 15px; text-transform: uppercase; }
@@ -83,25 +103,24 @@
         <div class="mark">THIỆN<span>POD</span> STORE</div>
         <nav>
             <a href="index.html">Trang Chủ</a>
-            <a href="index.html#products">Sản Phẩm</a>
+            <a href="index.html">Sản Phẩm</a>
             <a href="checkout.html">Giỏ hàng</a>
         </nav>
     </div>
 
     <!-- Main Chi Tiết Sản Phẩm -->
     <div class="product-container">
-        
-        <!-- Cột Ảnh nhỏ bên trái (Ưu tiên ảnh giày trắng ở vị trí đầu) -->
+        <!-- Cột Ảnh nhỏ bên trái -->
         <div class="thumb-list">
             <img src="images/polo_do1.jpg" class="thumb-item active" onclick="switchImage(this, 'images/polo_do1.jpg')" alt="Thumbnail">
             <img src="images/polo_do2.jpg" class="thumb-item" onclick="switchImage(this, 'images/polo_do2.jpg')" alt="Thumbnail">
             <img src="images/polo_do3.jpg" class="thumb-item" onclick="switchImage(this, 'images/polo_do3.jpg')" alt="Thumbnail">
-            <img src="images/polo_do4.jpg" class="thumb-item" onclick="switchImage(this, 'images/polo_do4.jpg')" alt="Thumbnail">
+            <img src="images/polo_kelme5.jpg" class="thumb-item" onclick="switchImage(this, 'images/polo_do5.jpg')" alt="Thumbnail">
         </div>
 
         <!-- Ảnh chính to ở giữa -->
         <div class="main-img-box">
-            <img id="mainImage" src="images/polo_do1.jpg" alt="Mizuno Đỏ">
+            <img id="mainImage" src="images/polo_do1.jpg" alt="Áo Polo">
         </div>
 
         <!-- Thông tin sản phẩm bên phải -->
@@ -119,12 +138,12 @@
             <!-- Các ô chọn dropdown -->
             <div class="select-row">
                 <select class="custom-select">
-                    <option>TP-86217</option>
+                    <option>Mã: TP-86217</option>
                 </select>
                 <select class="custom-select" onchange="if(this.value) location.href=this.value;">
                     <option value="san-pham-xanh.html">Xanh Dương</option>
                     <option value="san-pham-bac.html">Bạc</option>
-                    <option value="san-pham-trang.html" selected>Trắng</option>
+                    <option value="ao-polo-tim.html" selected>Tím / Đen</option>
                     <option value="san-pham-do.html">Đỏ</option>
                 </select>
                 <select class="custom-select">
@@ -132,7 +151,7 @@
                     <option>Size M</option>
                     <option>Size L</option>
                     <option>Size XL</option>
-                    <option>Size XXL</option>
+                    <option>Size 2XL</option>
                 </select>
             </div>
 
@@ -148,7 +167,7 @@
 
             <button class="btn-buy">Mua ngay</button>
             
-            <div class="hotline-text">Gọi đặt mua: <span>086.777.2190</span> (8:30 - 17:30)</div>
+            <div class="hotline-text">Gọi đặt mua: <span>0779.224.960</span> (8:30 - 17:30)</div>
 
             <div class="features-row">
                 <div class="feature-item">📦 Giao hàng toàn quốc</div>
@@ -160,7 +179,84 @@
                 <span>🤍</span> Thêm vào yêu thích
             </div>
         </div>
+    </div>
 
+    <!-- KHU VỰC GỢI Ý SẢN PHẨM MUA KÈM (FREQUENTLY BOUGHT TOGETHER) -->
+    <div class="bundle-section" style="max-width: 1200px; margin: 40px auto; background: #fff; padding: 25px 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border: 1px solid #eee;">
+        <h3 style="font-size: 18px; font-weight: bold; margin-bottom: 5px; text-transform: uppercase;">Thường được mua cùng nhau</h3>
+        <p style="font-size: 13px; color: #666; margin-bottom: 15px;">Tiết kiệm hơn khi mua trọn bộ sản phẩm hỗ trợ thể thao.</p>
+        
+        <div class="bundle-container" style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+            <!-- Sản phẩm chính -->
+            <div class="bundle-item" style="display: flex; align-items: center; gap: 10px; background: #fdfdfd; border: 1px solid #eee; padding: 10px; border-radius: 6px; flex: 1; min-width: 220px;">
+                <input type="checkbox" checked disabled style="cursor: not-allowed;">
+                <img src="images/polo_do1.jpg" alt="Sản phẩm chính" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px; border: 1px solid #ddd;">
+                <div style="font-size: 13px;">
+                    <div style="font-weight: bold;">Áo Polo Thể Thao</div>
+                    <div style="color: #e53935; font-weight: bold;" id="bundle-main-price" data-price="399000">399.000đ</div>
+                </div>
+            </div>
+
+            <div class="bundle-plus" style="font-size: 20px; font-weight: bold; color: #aaa;">+</div>
+
+            <!-- Sản phẩm mua kèm 1 -->
+            <div class="bundle-item" style="display: flex; align-items: center; gap: 10px; background: #fdfdfd; border: 1px solid #eee; padding: 10px; border-radius: 6px; flex: 1; min-width: 220px;">
+                <input type="checkbox" class="bundle-checkbox" checked data-price="150000" onchange="calculateBundleTotal()">
+                <img src="images/tat1.jpg" alt="Tất chống trượt" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px; border: 1px solid #ddd;">
+                <div style="font-size: 13px;">
+                    <div style="font-weight: bold;">Tất chống trượt thể thao</div>
+                    <div style="color: #e53935; font-weight: bold;">150.000đ</div>
+                </div>
+            </div>
+
+            <div class="bundle-plus" style="font-size: 20px; font-weight: bold; color: #aaa;">+</div>
+
+            <!-- Sản phẩm mua kèm 2 -->
+            <div class="bundle-item" style="display: flex; align-items: center; gap: 10px; background: #fdfdfd; border: 1px solid #eee; padding: 10px; border-radius: 6px; flex: 1; min-width: 220px;">
+                <input type="checkbox" class="bundle-checkbox" checked data-price="99000" onchange="calculateBundleTotal()">
+                <img src="images/binhnuoc.jpg" alt="Bình nước thể thao" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px; border: 1px solid #ddd;">
+                <div style="font-size: 13px;">
+                    <div style="font-weight: bold;">Bình đựng nước thể thao 1L</div>
+                    <div style="color: #e53935; font-weight: bold;">99.000đ</div>
+                </div>
+            </div>
+
+            <!-- Khối tổng tiền và nút mua gói -->
+            <div class="bundle-summary" style="background: #fafafa; border: 1px solid #eee; padding: 20px; border-radius: 6px; min-width: 250px; text-align: center;">
+                <div style="font-size: 13px; color: #555;">Tổng giá tiền các mục:</div>
+                <div class="bundle-total-price" id="bundle-total-display" style="font-size: 22px; font-weight: bold; color: #e53935; margin: 10px 0;">648.000đ</div>
+                <button class="bundle-buy-btn" onclick="addBundleToCart()" style="background: #e53935; color: #fff; border: none; padding: 10px 20px; font-weight: bold; border-radius: 4px; cursor: pointer; width: 100%; font-size: 14px;">THÊM TẤT CẢ VÀO GIỎ</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- KHU VỰC ĐÁNH GIÁ SẢN PHẨM -->
+    <div style="max-width: 1200px; margin: 40px auto; background: #fff; padding: 25px 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border: 1px solid #eee;">
+        <h3 style="font-size: 18px; font-weight: bold; margin-bottom: 15px; text-transform: uppercase;">Đánh giá sản phẩm</h3>
+        <div style="display: flex; gap: 20px; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px;">
+            <div style="font-size: 32px; font-weight: bold; color: #e53935;">4.9 / 5</div>
+            <div>
+                <div style="color: #ffc107; font-size: 18px;">★★★★★</div>
+                <div style="font-size: 13px; color: #666;">Dựa trên 28 đánh giá của khách hàng</div>
+            </div>
+        </div>
+        <div style="font-size: 14px; color: #444; margin-bottom: 15px;">
+            <b>Lan Anh Xinh Yêu:</b> <span style="color: #ffc107;">★★★★★</span><br>
+            <span style="color: #666; font-size: 13px;">Áo mặc cực kỳ thoáng mát, thấm mồ hôi tốt, form dáng thể thao rất đẹp!</span>
+        </div>
+    </div>
+
+    <!-- POPUP THÔNG BÁO ĐƠN HÀNG THỜI GIAN THỰC -->
+    <div id="live-purchase-popup" class="purchase-popup">
+        <div class="popup-close" onclick="closePopup()">&times;</div>
+        <div class="popup-thumb">
+            <img id="popup-img" src="images/polo_do1.jpg" alt="Sản phẩm">
+        </div>
+        <div class="popup-content">
+            <div class="popup-title" id="popup-buyer">Khách hàng vừa mua</div>
+            <div class="popup-product-name" id="popup-product">Áo Polo Thể Thao</div>
+            <div class="popup-time" id="popup-time">Vừa xong</div>
+        </div>
     </div>
 
     <!-- Chân trang Footer -->
@@ -202,6 +298,7 @@
         </div>
     </footer>
 
+    <!-- JavaScript xử lý tương tác -->
     <script>
         function switchImage(el, src) {
             document.getElementById('mainImage').src = src;
@@ -214,6 +311,59 @@
             let val = parseInt(input.value) + change;
             if (val >= 1) input.value = val;
         }
+
+        function calculateBundleTotal() {
+            let mainPrice = parseInt(document.getElementById('bundle-main-price').getAttribute('data-price')) || 0;
+            let total = mainPrice;
+
+            const checkboxes = document.querySelectorAll('.bundle-checkbox');
+            checkboxes.forEach(cb => {
+                if (cb.checked) {
+                    total += parseInt(cb.getAttribute('data-price')) || 0;
+                }
+            });
+
+            document.getElementById('bundle-total-display').innerText = total.toLocaleString('vi-VN') + 'đ';
+        }
+
+        function addBundleToCart() {
+            alert('Đã thêm thành công sản phẩm chính và các món mua kèm vào giỏ hàng!');
+        }
+
+        // Dữ liệu popup đơn hàng thời gian thực
+        const fakeOrders = [
+            { buyer: "Anh Minh (TP.HCM)", product: "Áo Polo Thể Thao (Tím)", img: "images/polo_kelme1.jpg", time: "2 phút trước" },
+            { buyer: "Chị Lan (Hà Nội)", product: "Tất chống trượt thể thao", img: "images/tat_chongtruot.jpg", time: "5 phút trước" },
+            { buyer: "Anh Hoàng (Đà Nẵng)", product: "Bình đựng nước thể thao 1L", img: "images/binh_nuoc.jpg", time: "10 phút trước" }
+        ];
+
+        function showRandomPurchasePopup() {
+            const popup = document.getElementById('live-purchase-popup');
+            if (!popup) return;
+
+            const randomOrder = fakeOrders[Math.floor(Math.random() * fakeOrders.length)];
+
+            document.getElementById('popup-buyer').innerText = randomOrder.buyer + " vừa đặt mua:";
+            document.getElementById('popup-product').innerText = randomOrder.product;
+            document.getElementById('popup-img').src = randomOrder.img;
+            document.getElementById('popup-time').innerText = randomOrder.time;
+
+            popup.classList.add('show');
+
+            setTimeout(() => {
+                popup.classList.remove('show');
+            }, 5000);
+        }
+
+        function closePopup() {
+            const popup = document.getElementById('live-purchase-popup');
+            if (popup) popup.classList.remove('show');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(showRandomPurchasePopup, 4000);
+            setInterval(showRandomPurchasePopup, 15000);
+        });
     </script>
 </body>
 </html>

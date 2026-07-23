@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thiệnpod Store - Đồ Thể Thao Chính Hãng</title>
     
-    <!-- DÁN CÁC THẺ META NÀY VÀO ĐÂY -->
+    <!-- Thẻ Meta OG -->
     <meta property="og:title" content="Thiệnpod Store - Đồ Thể Thao Chính Hãng">
     <meta property="og:description" content="Chuyên cung cấp quần áo, giày dép và phụ kiện thể thao chính hãng hàng đầu.">
     <meta property="og:image" content="https://thien-pod-store-main.vercel.app/images/logomoi.png">
@@ -30,6 +30,15 @@
             <a href="#products" style="text-decoration: none; color: #333; font-weight: 600;">SẢN PHẨM</a>
             <a href="checkout.html" style="text-decoration: none; color: #333; font-weight: 600;">THANH TOÁN</a>
         </nav>
+
+        <!-- Khung Thanh Tìm Kiếm -->
+<div class="search-container" style="position: relative; display: inline-block;">
+    <div class="search-box" style="display: flex; border: 2px solid #ddd; border-radius: 25px; overflow: hidden; background: #fff;">
+        <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm..." autocomplete="off" style="padding: 8px 15px; border: none; outline: none; font-size: 14px; width: 220px;">
+        <button id="searchBtn" style="background: #d32f2f; border: none; color: white; padding: 0 15px; cursor: pointer;">🔍</button>
+    </div>
+    <div id="searchDropdown" class="search-dropdown"></div>
+</div>
 
         <!-- Cụm nút bên phải (Đăng nhập & Giỏ hàng có Dropdown) -->
         <div style="display: flex; gap: 12px; align-items: center;">
@@ -395,7 +404,69 @@
     <!-- Floating Contacts -->
     <div class="float-contact">
         <a href="tel:0867772190" class="call" title="Gọi ngay"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg></a>
-        <a href="https://zalo.me/0867772190" target="_blank" class="chat" title="Chat Zalo">...</a>
+        <!-- Nút Zalo bấm hiện popup modal -->
+        <a href="javascript:void(0);" id="zaloBtn" class="chat" title="Chat Zalo">...</a>
+    </div>
+
+    <!-- ZALO MODAL POPUP -->
+    <div id="zaloModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999; justify-content: center; align-items: center;">
+        <div style="background: #fff; width: 720px; max-width: 92%; border-radius: 8px; padding: 35px 30px; position: relative; box-shadow: 0 4px 20px rgba(0,0,0,0.15); display: flex; gap: 40px; align-items: flex-start; box-sizing: border-box;">
+            
+            <!-- Nút đóng (X) -->
+            <span id="closeZaloModal" style="position: absolute; top: 15px; right: 20px; font-size: 22px; cursor: pointer; color: #888; font-weight: bold;">&times;</span>
+
+            <!-- Phần thông tin bên trái -->
+            <div style="flex: 1;">
+                <div style="display: flex; align-items: flex-start; gap: 15px; margin-bottom: 20px;">
+                    <img src="images/tp.png" alt="Logo" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: 1px solid #eee; flex-shrink: 0;">
+                    <div>
+                        <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 2px;">
+                            <h3 style="margin: 0; font-size: 20px; font-weight: bold; color: #111;">THIỆNPOD STORE</h3>
+                            <!-- Biểu tượng Tích Vàng -->
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="#f59e0b" xmlns="http://www.w3.org/2000/svg" style="flex-shrink: 0;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                        </div>
+                        <p style="margin: 0; color: #666; font-size: 14px;">Thời trang &amp; May mặc</p>
+                    </div>
+                </div>
+
+                <!-- Nút hộp thiếc -->
+                <a href="https://zalo.me/0867772190" target="_blank" style="display: flex; align-items: center; justify-content: center; gap: 8px; background: #0068ff; color: #fff; text-decoration: none; padding: 10px 0; border-radius: 6px; font-weight: bold; font-size: 15px; margin-bottom: 25px; width: 100%;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                    hộp thiếc
+                </a>
+
+                <!-- Thông tin chi tiết -->
+                <div>
+                    <h4 style="margin: 0 0 12px 0; font-size: 16px; font-weight: bold; color: #111;">Thông tin chi tiết</h4>
+                    
+                    <div style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; font-size: 14px; color: #333;">
+                        <span style="font-size: 16px; line-height: 1;">📍</span>
+                        <span>123 Đường Thiện Pod, Cẩm Phả, Tỉnh Quảng Ninh</span>
+                    </div>
+
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 14px;">
+                        <span style="font-size: 16px; line-height: 1;">📞</span>
+                        <a href="tel:0867772190" style="color: #0068ff; text-decoration: none; font-weight: 500;">0867772190</a>
+                    </div>
+
+                    <div style="display: flex; align-items: center; gap: 10px; font-size: 14px;">
+                        <span style="font-size: 16px; line-height: 1;">🌐</span>
+                        <a href="https://thien-pod-store-main.vercel.app/" target="_blank" style="color: #0068ff; text-decoration: none;">https://thien-pod-store-main.vercel.app/</a>
+                    </div>
+                </div>
+
+                <div style="border-top: 1px solid #eee; margin-top: 20px; padding-top: 15px; font-size: 13px; color: #555; line-height: 1.4;">
+                    Thiệnpod Store phân phối độc quyền chính hãng thời trang và phụ kiện thể thao.
+                </div>
+            </div>
+
+            <!-- Phần Mã QR bên phải -->
+            <div style="text-align: center; flex: 0 0 190px; border-left: 1px solid #eee; padding-left: 30px;">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://zalo.me/0867772190" alt="QR Zalo" style="width: 150px; height: 150px; margin-bottom: 12px; display: block; margin-left: auto; margin-right: auto;">
+                <p style="font-size: 12px; color: #666; margin: 0; line-height: 1.4;">Mở Zalo, ấn quét QR để quét và xem trên điện thoại</p>
+            </div>
+
+        </div>
     </div>
 
     <!-- SCRIPTS -->
@@ -403,7 +474,7 @@
     <script src="js/slider.js"></script>
     <script src="js/index.js"></script>
 
-    <!-- Script Xử Lý Hoàn Chỉnh Giữ Nguyên Khung Khi Xóa -->
+    <!-- Script Xử Lý Giỏ Hàng, Tài Khoản & Popup Zalo -->
     <script>
         // Hàm xóa sản phẩm
         function removeItem(element) {
@@ -454,29 +525,182 @@
             }
 
             // 2. Xử lý mở/đóng popup giỏ hàng an toàn tuyệt đối
-            const cartDropdownContainer = document.querySelector('.cart-dropdown-container');
             const cartToggleBtn = document.getElementById('cartToggleBtn');
             const miniCartPopup = document.querySelector('.mini-cart-popup');
 
             if (cartToggleBtn && miniCartPopup) {
-                // Bấm vào nút Giỏ hàng thì bật/tắt popup
                 cartToggleBtn.addEventListener('click', (e) => {
                     e.stopPropagation();
                     miniCartPopup.style.display = (miniCartPopup.style.display === 'block') ? 'none' : 'block';
                 });
 
-                // Chặn sự kiện click bên trong popup để không bị đóng nhầm
                 miniCartPopup.addEventListener('click', (e) => {
                     e.stopPropagation();
                 });
 
-                // Click ra vùng bên ngoài màn hình mới ẩn giỏ hàng đi
                 document.addEventListener('click', () => {
                     miniCartPopup.style.display = 'none';
+                });
+            }
+
+            // 3. Xử lý sự kiện bật/tắt Popup Zalo
+            const zaloBtn = document.getElementById('zaloBtn');
+            const zaloModal = document.getElementById('zaloModal');
+            const closeZaloModal = document.getElementById('closeZaloModal');
+
+            if (zaloBtn && zaloModal) {
+                zaloBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    zaloModal.style.display = 'flex';
+                });
+
+                closeZaloModal.addEventListener('click', () => {
+                    zaloModal.style.display = 'none';
+                });
+
+                zaloModal.addEventListener('click', (e) => {
+                    if (e.target === zaloModal) {
+                        zaloModal.style.display = 'none';
+                    }
                 });
             }
         });
     </script>
     
+<!-- HTML cho khối Popup Thông báo Đơn hàng -->
+<div id="live-purchase-popup" class="purchase-popup">
+    <div class="popup-close" onclick="closePopup()">&times;</div>
+    <div class="popup-thumb">
+        <img id="popup-img" src="images/mizuno2.jpg" alt="Sản phẩm">
+    </div>
+    <div class="popup-content">
+        <div class="popup-title" id="popup-buyer">Khách hàng vừa mua</div>
+        <div class="popup-product-name" id="popup-product">Tên sản phẩm</div>
+        <div class="popup-time" id="popup-time">Vừa xong</div>
+    </div>
+</div>
+
+<!-- CSS cho Popup Thông báo -->
+<style>
+    .purchase-popup {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        background: #fff;
+        padding: 12px 15px;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        z-index: 9999;
+        max-width: 300px;
+        font-family: Arial, sans-serif;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(20px);
+        transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+        border-left: 4px solid #e53935;
+    }
+
+    .purchase-popup.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .popup-thumb img {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        border-radius: 6px;
+        border: 1px solid #eee;
+    }
+
+    .popup-content {
+        flex: 1;
+        font-size: 13px;
+        line-height: 1.4;
+    }
+
+    .popup-title {
+        font-weight: bold;
+        color: #222;
+    }
+
+    .popup-product-name {
+        color: #0066cc;
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 210px;
+    }
+
+    .popup-time {
+        font-size: 11px;
+        color: #888;
+        margin-top: 2px;
+    }
+
+    .popup-close {
+        position: absolute;
+        top: 4px;
+        right: 8px;
+        font-size: 14px;
+        color: #aaa;
+        cursor: pointer;
+    }
+
+    .popup-close:hover {
+        color: #333;
+    }
+</style>
+
+<!-- JavaScript điều khiển hiệu ứng xuất hiện ngẫu nhiên -->
+<script>
+    // Danh sách dữ liệu mẫu để giả lập đơn hàng thời gian thực
+    const fakeOrders = [
+        { buyer: "Anh Minh (TP.HCM)", product: "Mizuno Alpha Elite AS TF (Xanh)", img: "images/mizuno2.jpg", time: "2 phút trước" },
+        { buyer: "Chị Lan (Hà Nội)", product: "Áo Polo Thể Thao (Tím)", img: "images/mizuno_bac1.jpg", time: "5 phút trước" },
+        { buyer: "Anh Hoàng (Đà Nẵng)", product: "Giày Bóng Đá Flash 6.0.4", img: "images/mizuno_bac2.jpg", time: "10 phút trước" },
+        { buyer: "Bạn Đức (Đồng Nai)", product: "Tất chống trượt thể thao", img: "images/tat_chongtruot.jpg", time: "12 phút trước" },
+        { buyer: "Anh Tuấn (Bình Dương)", product: "Bình đựng nước thể thao 1L", img: "images/binh_nuoc.jpg", time: "15 phút trước" }
+    ];
+
+    function showRandomPurchasePopup() {
+        const popup = document.getElementById('live-purchase-popup');
+        if (!popup) return;
+
+        // Chọn ngẫu nhiên một đơn hàng từ mảng
+        const randomOrder = fakeOrders[Math.floor(Math.random() * fakeOrders.length)];
+
+        // Đổ dữ liệu vào popup
+        document.getElementById('popup-buyer').innerText = randomOrder.buyer + " vừa đặt mua:";
+        document.getElementById('popup-product').innerText = randomOrder.product;
+        document.getElementById('popup-img').src = randomOrder.img;
+        document.getElementById('popup-time').innerText = randomOrder.time;
+
+        // Hiển thị popup
+        popup.classList.add('show');
+
+        // Tự động ẩn sau 5 giây
+        setTimeout(() => {
+            popup.classList.remove('show');
+        }, 5000);
+    }
+
+    function closePopup() {
+        const popup = document.getElementById('live-purchase-popup');
+        if (popup) popup.classList.remove('show');
+    }
+
+    // Thiết lập vòng lặp: Chạy lần đầu sau 4 giây, sau đó cứ mỗi 15 giây hiện một thông báo mới
+    document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(showRandomPurchasePopup, 4000);
+        setInterval(showRandomPurchasePopup, 15000);
+    });
+</script>
+
 </body>
 </html>

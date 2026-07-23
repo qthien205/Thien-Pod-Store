@@ -74,7 +74,6 @@
             background: #f1f1f1;
             height: 450px;
         }
-        /* Hiệu ứng chuyển động mượt mà cho ảnh lớn */
         .main-image-box img {
             width: 100%;
             height: 100%;
@@ -86,7 +85,6 @@
             opacity: 0;
             transform: scale(0.98);
         }
-
         .product-details {
             width: 50%;
         }
@@ -279,6 +277,76 @@
             color: #555;
             line-height: 1.6;
         }
+
+        /* CSS cho phần Gợi ý sản phẩm mua kèm (Frequently Bought Together) */
+        .bundle-section {
+            max-width: 1200px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 25px 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .bundle-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+        .bundle-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #fdfdfd;
+            border: 1px solid #eee;
+            padding: 10px;
+            border-radius: 6px;
+            flex: 1;
+            min-width: 220px;
+        }
+        .bundle-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        .bundle-plus {
+            font-size: 20px;
+            font-weight: bold;
+            color: #aaa;
+        }
+        .bundle-summary {
+            background: #fafafa;
+            border: 1px solid #eee;
+            padding: 20px;
+            border-radius: 6px;
+            min-width: 250px;
+            text-align: center;
+        }
+        .bundle-total-price {
+            font-size: 22px;
+            font-weight: bold;
+            color: #e53935;
+            margin: 10px 0;
+        }
+        .bundle-buy-btn {
+            background: #e53935;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+        .bundle-buy-btn:hover {
+            background: #c62828;
+        }
+
         footer.site-footer {
             background-color: #000;
             color: #fff;
@@ -482,6 +550,55 @@
         </div>
     </div>
 
+    <!-- KHU VỰC GỢI Ý SẢN PHẨM MUA KÈM (FREQUENTLY BOUGHT TOGETHER) -->
+    <div class="bundle-section">
+        <h3 style="font-size: 18px; font-weight: bold; margin-bottom: 5px; text-transform: uppercase;">Thường được mua cùng nhau</h3>
+        <p style="font-size: 13px; color: #666; margin-bottom: 15px;">Tiết kiệm hơn khi mua trọn bộ sản phẩm hỗ trợ thi đấu thể thao.</p>
+        
+        <div class="bundle-container">
+            <!-- Sản phẩm chính -->
+            <div class="bundle-item">
+                <input type="checkbox" checked disabled style="cursor: not-allowed;">
+                <img src="images/mizuno2.jpg" alt="Sản phẩm chính">
+                <div style="font-size: 13px;">
+                    <div style="font-weight: bold;" id="bundle-main-name">Sản phẩm chính</div>
+                    <div style="color: #e53935; font-weight: bold;" id="bundle-main-price" data-price="1200000">1.200.000đ</div>
+                </div>
+            </div>
+
+            <div class="bundle-plus">+</div>
+
+            <!-- Sản phẩm mua kèm 1 -->
+            <div class="bundle-item">
+                <input type="checkbox" class="bundle-checkbox" checked data-price="150000" onchange="calculateBundleTotal()">
+                <img src="images/tat_chongtruot.jpg" alt="Tất chống trượt">
+                <div style="font-size: 13px;">
+                    <div style="font-weight: bold;">Tất chống trượt thể thao</div>
+                    <div style="color: #e53935; font-weight: bold;">150.000đ</div>
+                </div>
+            </div>
+
+            <div class="bundle-plus">+</div>
+
+            <!-- Sản phẩm mua kèm 2 -->
+            <div class="bundle-item">
+                <input type="checkbox" class="bundle-checkbox" checked data-price="99000" onchange="calculateBundleTotal()">
+                <img src="images/binh_nuoc.jpg" alt="Bình nước thể thao">
+                <div style="font-size: 13px;">
+                    <div style="font-weight: bold;">Bình đựng nước thể thao 1L</div>
+                    <div style="color: #e53935; font-weight: bold;">99.000đ</div>
+                </div>
+            </div>
+
+            <!-- Khối tổng tiền và nút mua gói -->
+            <div class="bundle-summary">
+                <div style="font-size: 13px; color: #555;">Tổng giá tiền các mục:</div>
+                <div class="bundle-total-price" id="bundle-total-display">1.449.000đ</div>
+                <button class="bundle-buy-btn" onclick="addBundleToCart()">THÊM TẤT CẢ VÀO GIỎ</button>
+            </div>
+        </div>
+    </div>
+
     <!-- KHU VỰC TAB MÔ TẢ -->
     <div class="description-section">
         <div class="tabs-header">
@@ -540,22 +657,22 @@
         </div>
     </footer>
 
-   <script>
+    <script>
         // Kho dữ liệu tất cả sản phẩm của cửa hàng
         const productsData = {
-            1: { name: "ÁO POLO THỂ THAO (Tím)", price: "399.000đ", sku: "TP-86211" },
-            2: { name: "ÁO POLO THỂ THAO (Xanh Dương)", price: "399.000đ", sku: "TP-86212" },
-            3: { name: "ÁO POLO THỂ THAO (Xanh Lá)", price: "399.000đ", sku: "TP-86213" },
-            4: { name: "ÁO POLO THỂ THAO (Đen)", price: "399.000đ", sku: "TP-86214" },
-            5: { name: "Mizuno Alpha Elite AS TF (XANH)", price: "1.200.000đ", sku: "TP-86215" },
-            6: { name: "Mizuno Alpha Elite AS TF (BẠC)", price: "1.200.000đ", sku: "TP-86216" },
-            7: { name: "Mizuno Alpha Elite AS TF (TRẮNG)", price: "1.200.000đ", sku: "TP-86217" },
-            8: { name: "GIÀY BÓNG ĐÁ FLASH 6.0.4 (TF)", price: "2.280.000đ", sku: "8621ZX1406" }
+            1: { name: "ÁO POLO THỂ THAO (Tím)", price: "399.000đ", rawPrice: 399000, sku: "TP-86211" },
+            2: { name: "ÁO POLO THỂ THAO (Xanh Dương)", price: "399.000đ", rawPrice: 399000, sku: "TP-86212" },
+            3: { name: "ÁO POLO THỂ THAO (Xanh Lá)", price: "399.000đ", rawPrice: 399000, sku: "TP-86213" },
+            4: { name: "ÁO POLO THỂ THAO (Đen)", price: "399.000đ", rawPrice: 399000, sku: "TP-86214" },
+            5: { name: "Mizuno Alpha Elite AS TF (XANH)", price: "1.200.000đ", rawPrice: 1200000, sku: "TP-86215" },
+            6: { name: "Mizuno Alpha Elite AS TF (BẠC)", price: "1.200.000đ", rawPrice: 1200000, sku: "TP-86216" },
+            7: { name: "Mizuno Alpha Elite AS TF (TRẮNG)", price: "1.200.000đ", rawPrice: 1200000, sku: "TP-86217" },
+            8: { name: "GIÀY BÓNG ĐÁ FLASH 6.0.4 (TF)", price: "2.280.000đ", rawPrice: 2280000, sku: "8621ZX1406" }
         };
 
-        // Đọc mã ID trên thanh URL (VD: product-detail.html?id=8 -> lấy số 8)
+        // Đọc mã ID trên thanh URL
         const urlParams = new URLSearchParams(window.location.search);
-        const productId = urlParams.get('id') || '8'; // Mặc định là 8 nếu không có id
+        const productId = urlParams.get('id') || '8'; 
 
         // Tự động đổ dữ liệu tương ứng vào trang web khi load xong
         document.addEventListener('DOMContentLoaded', () => {
@@ -564,6 +681,15 @@
             document.querySelector('.product-name').innerText = product.name;
             document.querySelector('.product-price').innerText = product.price;
             document.getElementById('product-sku').innerText = product.sku;
+
+            // Đồng bộ sang phần mua kèm
+            document.getElementById('bundle-main-name').innerText = product.name;
+            document.getElementById('bundle-main-price').innerText = product.price;
+            let mainPriceEl = document.getElementById('bundle-main-price');
+            if(mainPriceEl) {
+                mainPriceEl.setAttribute('data-price', product.rawPrice);
+            }
+            calculateBundleTotal();
         });
 
         // Hàm đổi ảnh mượt mà khi bấm vào các ô nhỏ bên trái
@@ -593,6 +719,162 @@
                 if (val > 1) input.value = val - 1;
             }
         }
+
+        // Tính toán tổng tiền động khi tích/bỏ tích sản phẩm mua kèm
+        function calculateBundleTotal() {
+            let mainPrice = parseInt(document.getElementById('bundle-main-price').getAttribute('data-price')) || 0;
+            let total = mainPrice;
+
+            const checkboxes = document.querySelectorAll('.bundle-checkbox');
+            checkboxes.forEach(cb => {
+                if (cb.checked) {
+                    total += parseInt(cb.getAttribute('data-price')) || 0;
+                }
+            });
+
+            document.getElementById('bundle-total-display').innerText = total.toLocaleString('vi-VN') + 'đ';
+        }
+
+        // Thêm tất cả sản phẩm đang chọn trong gói vào giỏ hàng
+        function addBundleToCart() {
+            alert('Đã thêm thành công sản phẩm chính và các món mua kèm vào giỏ hàng của bạn!');
+        }
     </script>
+
+<!-- HTML cho khối Popup Thông báo Đơn hàng -->
+<div id="live-purchase-popup" class="purchase-popup">
+    <div class="popup-close" onclick="closePopup()">&times;</div>
+    <div class="popup-thumb">
+        <img id="popup-img" src="images/mizuno2.jpg" alt="Sản phẩm">
+    </div>
+    <div class="popup-content">
+        <div class="popup-title" id="popup-buyer">Khách hàng vừa mua</div>
+        <div class="popup-product-name" id="popup-product">Tên sản phẩm</div>
+        <div class="popup-time" id="popup-time">Vừa xong</div>
+    </div>
+</div>
+
+<!-- CSS cho Popup Thông báo -->
+<style>
+    .purchase-popup {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        background: #fff;
+        padding: 12px 15px;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        z-index: 9999;
+        max-width: 300px;
+        font-family: Arial, sans-serif;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(20px);
+        transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+        border-left: 4px solid #e53935;
+    }
+
+    .purchase-popup.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .popup-thumb img {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        border-radius: 6px;
+        border: 1px solid #eee;
+    }
+
+    .popup-content {
+        flex: 1;
+        font-size: 13px;
+        line-height: 1.4;
+    }
+
+    .popup-title {
+        font-weight: bold;
+        color: #222;
+    }
+
+    .popup-product-name {
+        color: #0066cc;
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 210px;
+    }
+
+    .popup-time {
+        font-size: 11px;
+        color: #888;
+        margin-top: 2px;
+    }
+
+    .popup-close {
+        position: absolute;
+        top: 4px;
+        right: 8px;
+        font-size: 14px;
+        color: #aaa;
+        cursor: pointer;
+    }
+
+    .popup-close:hover {
+        color: #333;
+    }
+</style>
+
+<!-- JavaScript điều khiển hiệu ứng xuất hiện ngẫu nhiên -->
+<script>
+    // Danh sách dữ liệu mẫu để giả lập đơn hàng thời gian thực
+    const fakeOrders = [
+        { buyer: "Anh Minh (TP.HCM)", product: "Mizuno Alpha Elite AS TF (Xanh)", img: "images/mizuno2.jpg", time: "2 phút trước" },
+        { buyer: "Chị Lan (Hà Nội)", product: "Áo Polo Thể Thao (Tím)", img: "images/mizuno_bac1.jpg", time: "5 phút trước" },
+        { buyer: "Anh Hoàng (Đà Nẵng)", product: "Giày Bóng Đá Flash 6.0.4", img: "images/mizuno_bac2.jpg", time: "10 phút trước" },
+        { buyer: "Bạn Đức (Đồng Nai)", product: "Tất chống trượt thể thao", img: "images/tat_chongtruot.jpg", time: "12 phút trước" },
+        { buyer: "Anh Tuấn (Bình Dương)", product: "Bình đựng nước thể thao 1L", img: "images/binh_nuoc.jpg", time: "15 phút trước" }
+    ];
+
+    function showRandomPurchasePopup() {
+        const popup = document.getElementById('live-purchase-popup');
+        if (!popup) return;
+
+        // Chọn ngẫu nhiên một đơn hàng từ mảng
+        const randomOrder = fakeOrders[Math.floor(Math.random() * fakeOrders.length)];
+
+        // Đổ dữ liệu vào popup
+        document.getElementById('popup-buyer').innerText = randomOrder.buyer + " vừa đặt mua:";
+        document.getElementById('popup-product').innerText = randomOrder.product;
+        document.getElementById('popup-img').src = randomOrder.img;
+        document.getElementById('popup-time').innerText = randomOrder.time;
+
+        // Hiển thị popup
+        popup.classList.add('show');
+
+        // Tự động ẩn sau 5 giây
+        setTimeout(() => {
+            popup.classList.remove('show');
+        }, 5000);
+    }
+
+    function closePopup() {
+        const popup = document.getElementById('live-purchase-popup');
+        if (popup) popup.classList.remove('show');
+    }
+
+    // Thiết lập vòng lặp: Chạy lần đầu sau 4 giây, sau đó cứ mỗi 15 giây hiện một thông báo mới
+    document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(showRandomPurchasePopup, 4000);
+        setInterval(showRandomPurchasePopup, 15000);
+    });
+</script>
+
 </body>
 </html>
