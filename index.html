@@ -582,140 +582,33 @@
 
 <!-- CSS cho Popup Thông báo -->
 <style>
-    /* ==========================================================
-       1. CSS CHO POPUP THÔNG BÁO MUA HÀNG
-       ================================================---------- */
-    .purchase-popup {
-        position: fixed;
-        bottom: 20px;
-        left: 20px;
-        background: #fff;
-        padding: 12px 15px;
-        border-radius: 8px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        z-index: 9999;
-        max-width: 300px;
-        font-family: Arial, sans-serif;
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(20px);
-        transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
-        border-left: 4px solid #e53935;
-    }
-
-    .purchase-popup.show {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
-    }
-
-    .popup-thumb img {
-        width: 50px;
-        height: 50px;
-        object-fit: cover;
-        border-radius: 6px;
-        border: 1px solid #eee;
-    }
-
-    .popup-content {
-        flex: 1;
-        font-size: 13px;
-        line-height: 1.4;
-    }
-
-    .popup-title {
-        font-weight: bold;
-        color: #222;
-    }
-
-    .popup-product-name {
-        color: #0066cc;
-        font-weight: 600;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        max-width: 210px;
-    }
-
-    .popup-time {
-        font-size: 11px;
-        color: #888;
-        margin-top: 2px;
-    }
-
-    .popup-close {
-        position: absolute;
-        top: 4px;
-        right: 8px;
-        font-size: 14px;
-        color: #aaa;
-        cursor: pointer;
-    }
-
-    .popup-close:hover {
-        color: #333;
-    }
-
-    /* ==========================================================
-       2. CƠ CHẾ CO GIÃN TỔNG THỂ CHO TOÀN BỘ TRANG WEB
-       ================================================---------- */
-    html, body {
-        width: 100%;
-        max-width: 100%;
-        overflow-x: hidden !important;
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: Arial, sans-serif;
-    }
-
-    *, *:before, *:after {
-        box-sizing: inherit;
-    }
-
-    img, video, canvas, svg {
-        max-width: 100%;
-        height: auto;
-    }
-
-    /* ==========================================================
-       3. TỐI ƯU HÓA HIỂN THỊ TRÊN MÀN HÌNH ĐIỆN THOẠI (MOBILE)
-       ================================================---------- */
+    /* Biến tất cả các hàng, khối danh sách, voucher thành dạng trượt ngang trên điện thoại */
     @media screen and (max-width: 768px) {
-        /* Ép header và thanh điều hướng nằm gọn, không bị đẩy tràn ra ngoài */
-        .header, nav, .menu-container, .nav-menu {
+        /* Tìm đến các vùng chứa nhiều cột/khối ngang để bật tính năng cuộn */
+        div, section, .row, .container, .list-product, .voucher-list {
+            /* Nếu bạn muốn áp dụng cho mọi khối hàng ngang, hãy bỏ bớt giới hạn */
+        }
+
+        /* Thiết lập chuẩn cho thanh trượt ngang mượt mà */
+        .scroll-horizontal, [class*="row"], [class*="list"], [class*="grid"] {
             display: flex !important;
             flex-wrap: nowrap !important;
-            align-items: center !important;
-            justify-content: space-between !important;
-            width: 100% !important;
-            padding: 10px !important;
-            gap: 5px !important;
+            overflow-x: auto !important;
+            -webkit-overflow-scrolling: touch;
+            gap: 12px !important;
+            scroll-snap-type: x mandatory;
         }
 
-        /* Thu nhỏ kích thước chữ và khoảng cách của các mục menu trên điện thoại */
-        .header a, nav a, .nav-item {
-            font-size: 12px !important;
-            padding: 4px 6px !important;
-            white-space: nowrap !important;
+        /* Giữ cố định từng khung bên trong để khi vuốt nó khựng lại từng mục cực kỳ mượt */
+        .scroll-horizontal > *, [class*="row"] > *, [class*="col-"], [class*="item"] {
+            flex: 0 0 75% !important; /* Mỗi khung chiếm khoảng 75 chiều rộng màn hình để dễ nhìn */
+            max-width: 75% !important;
+            scroll-snap-align: start;
         }
 
-        /* Thu gọn ô tìm kiếm để vừa vặn với icon kính lúp và giỏ hàng */
-        input[type="text"], .search-box, .search-input {
-            max-width: 90px !important;
-            font-size: 12px !important;
-            padding: 4px 6px !important;
-        }
-
-        /* Đảm bảo các khung chứa sản phẩm, banner co giãn theo màn hình điện thoại */
-        .product-container, .footer-container, .main-img-box, .banner {
-            width: 100% !important;
-            max-width: 100% !important;
-            padding-left: 5px !important;
-            padding-right: 5px !important;
+        /* Ẩn thanh cuộn ngang đi cho giao diện sạch đẹp như app */
+        ::-webkit-scrollbar {
+            display: none !important;
         }
     }
 </style>
