@@ -692,6 +692,27 @@
         box-sizing: border-box;
     }
 
+    @media screen and (max-width: 768px) {
+    /* Cho thanh menu tự động cuộn ngang hoặc thu nhỏ các chữ để vừa khít màn hình */
+    .header, nav, .menu-container {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+        font-size: 13px;
+    }
+    
+    /* Thu gọn khoảng cách các chữ Trang chủ, Sản phẩm, Thanh toán, Giỏ hàng */
+    nav a, .nav-item {
+        padding: 5px 8px !important;
+        font-size: 12px !important;
+    }
+
+    /* Ẩn bớt ô tìm kiếm hoặc làm ngắn lại nếu không đủ chỗ */
+    input[type="text"], .search-box {
+        max-width: 120px !important;
+    }
+}
+
 </style>
 
 <!-- JavaScript điều khiển hiệu ứng xuất hiện ngẫu nhiên -->
