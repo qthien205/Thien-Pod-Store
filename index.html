@@ -660,11 +660,12 @@
     }
 
     /* ==========================================================
-       2. CSS CHỐNG TRÀN NGANG & TỐI ƯU CO GIÃN CHO ĐIỆN THOẠI
+       2. CƠ CHẾ CO GIÃN TỔNG THỂ CHO TOÀN BỘ TRANG WEB
        ================================================---------- */
     html, body {
+        width: 100%;
         max-width: 100%;
-        overflow-x: hidden;
+        overflow-x: hidden !important;
         margin: 0;
         padding: 0;
         box-sizing: border-box;
@@ -680,32 +681,41 @@
         height: auto;
     }
 
-    .product-container, .footer-container, .main-img-box {
-        max-width: 100% !important;
-        box-sizing: border-box;
-    }
-
     /* ==========================================================
-       3. RESPONSIVE RIÊNG CHO MÀN HÌNH NHỎ (MOBILE <= 768px)
+       3. TỐI ƯU HÓA HIỂN THỊ TRÊN MÀN HÌNH ĐIỆN THOẠI (MOBILE)
        ================================================---------- */
     @media screen and (max-width: 768px) {
-        /* Tự động căn chỉnh menu vừa khít màn hình */
-        .header, nav, .menu-container {
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 8px;
-            font-size: 13px;
-        }
-        
-        /* Thu gọn khoảng cách các chữ Trang chủ, Sản phẩm, Thanh toán, Giỏ hàng */
-        nav a, .nav-item {
-            padding: 5px 8px !important;
-            font-size: 12px !important;
+        /* Ép header và thanh điều hướng nằm gọn, không bị đẩy tràn ra ngoài */
+        .header, nav, .menu-container, .nav-menu {
+            display: flex !important;
+            flex-wrap: nowrap !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            width: 100% !important;
+            padding: 10px !important;
+            gap: 5px !important;
         }
 
-        /* Thu ngắn ô tìm kiếm để không bị tràn */
-        input[type="text"], .search-box {
-            max-width: 120px !important;
+        /* Thu nhỏ kích thước chữ và khoảng cách của các mục menu trên điện thoại */
+        .header a, nav a, .nav-item {
+            font-size: 12px !important;
+            padding: 4px 6px !important;
+            white-space: nowrap !important;
+        }
+
+        /* Thu gọn ô tìm kiếm để vừa vặn với icon kính lúp và giỏ hàng */
+        input[type="text"], .search-box, .search-input {
+            max-width: 90px !important;
+            font-size: 12px !important;
+            padding: 4px 6px !important;
+        }
+
+        /* Đảm bảo các khung chứa sản phẩm, banner co giãn theo màn hình điện thoại */
+        .product-container, .footer-container, .main-img-box, .banner {
+            width: 100% !important;
+            max-width: 100% !important;
+            padding-left: 5px !important;
+            padding-right: 5px !important;
         }
     }
 </style>
