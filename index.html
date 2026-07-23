@@ -582,6 +582,9 @@
 
 <!-- CSS cho Popup Thông báo -->
 <style>
+    /* ==========================================================
+       1. CSS CHO POPUP THÔNG BÁO MUA HÀNG
+       ================================================---------- */
     .purchase-popup {
         position: fixed;
         bottom: 20px;
@@ -656,26 +659,16 @@
         color: #333;
     }
 
-    /* Dán vào đây là chuẩn nhất */
+    /* ==========================================================
+       2. CSS CHỐNG TRÀN NGANG & TỐI ƯU CO GIÃN CHO ĐIỆN THOẠI
+       ================================================---------- */
     html, body {
         max-width: 100%;
         overflow-x: hidden;
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-    }
-    *, *:before, *:after { box-sizing: inherit; }
-
-    /* Các đoạn CSS cũ của bạn ở bên dưới... */
-    body { font-family: Arial, sans-serif; }
-
-    /* Chống tràn ngang và co giãn tối ưu trên điện thoại */
-    html, body {
-        max-width: 100%;
-        overflow-x: hidden;
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+        font-family: Arial, sans-serif;
     }
 
     *, *:before, *:after {
@@ -692,27 +685,29 @@
         box-sizing: border-box;
     }
 
+    /* ==========================================================
+       3. RESPONSIVE RIÊNG CHO MÀN HÌNH NHỎ (MOBILE <= 768px)
+       ================================================---------- */
     @media screen and (max-width: 768px) {
-    /* Cho thanh menu tự động cuộn ngang hoặc thu nhỏ các chữ để vừa khít màn hình */
-    .header, nav, .menu-container {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 8px;
-        font-size: 13px;
-    }
-    
-    /* Thu gọn khoảng cách các chữ Trang chủ, Sản phẩm, Thanh toán, Giỏ hàng */
-    nav a, .nav-item {
-        padding: 5px 8px !important;
-        font-size: 12px !important;
-    }
+        /* Tự động căn chỉnh menu vừa khít màn hình */
+        .header, nav, .menu-container {
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            font-size: 13px;
+        }
+        
+        /* Thu gọn khoảng cách các chữ Trang chủ, Sản phẩm, Thanh toán, Giỏ hàng */
+        nav a, .nav-item {
+            padding: 5px 8px !important;
+            font-size: 12px !important;
+        }
 
-    /* Ẩn bớt ô tìm kiếm hoặc làm ngắn lại nếu không đủ chỗ */
-    input[type="text"], .search-box {
-        max-width: 120px !important;
+        /* Thu ngắn ô tìm kiếm để không bị tràn */
+        input[type="text"], .search-box {
+            max-width: 120px !important;
+        }
     }
-}
-
 </style>
 
 <!-- JavaScript điều khiển hiệu ứng xuất hiện ngẫu nhiên -->
