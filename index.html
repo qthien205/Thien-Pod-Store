@@ -582,63 +582,24 @@
 
 <!-- CSS cho Popup Thông báo -->
 <style>
-    /* Ép khung trang ôm khít màn hình điện thoại, chống tràn trắng bên phải */
+    /* Ép toàn bộ trang web hiển thị đầy đủ như trên máy tính và cho phép trượt ngang 2 bên trên điện thoại */
     @media screen and (max-width: 768px) {
+        /* Thiết lập chiều rộng tối thiểu cho toàn bộ trang để giữ nguyên bố cục máy tính */
         html, body {
-            width: 100% !important;
-            max-width: 100vw !important;
-            overflow-x: hidden !important;
+            min-width: 1100px !important; /* Cố định độ rộng chuẩn (có thể đổi thành 1200px nếu website của bạn rộng hơn) */
+            overflow-x: auto !important;   /* Cho phép vuốt trượt ngang toàn trang qua lại 2 bên mượt mà */
             margin: 0 !important;
             padding: 0 !important;
+            -webkit-overflow-scrolling: touch;
         }
 
-        /* 1. Biến phần danh sách Voucher thành trượt ngang */
-        .voucher-container, .voucher-list, .list-voucher {
+        /* Đảm bảo thanh Header / Menu không bị co ép, luôn giữ nguyên trạng thái đầy đủ các nút Đăng nhập, Giỏ hàng */
+        .header, nav, header {
+            width: 1100px !important;
             display: flex !important;
             flex-wrap: nowrap !important;
-            overflow-x: auto !important;
-            -webkit-overflow-scrolling: touch;
-            gap: 10px !important;
-            padding: 10px !important;
-            scroll-snap-type: x mandatory;
-        }
-        .voucher-container > div, .voucher-list > div {
-            flex: 0 0 80% !important;
-            max-width: 80% !important;
-            scroll-snap-align: start;
-        }
-
-        /* 2. Biến phần Danh mục sản phẩm thành trượt ngang */
-        .category-container, .categories, .list-category {
-            display: flex !important;
-            flex-wrap: nowrap !important;
-            overflow-x: auto !important;
-            -webkit-overflow-scrolling: touch;
-            gap: 10px !important;
-            padding: 10px !important;
-        }
-        .category-container > div, .categories > div {
-            flex: 0 0 30% !important;
-            max-width: 30% !important;
-        }
-
-        /* 3. Biến phần Sản phẩm nổi bật thành trượt ngang */
-        .product-grid, .product-list, .list-product {
-            display: flex !important;
-            flex-wrap: nowrap !important;
-            overflow-x: auto !important;
-            -webkit-overflow-scrolling: touch;
-            gap: 12px !important;
-            padding: 10px !important;
-        }
-        .product-grid > div, .product-list > div, .list-product > div {
-            flex: 0 0 45% !important;
-            max-width: 45% !important;
-        }
-
-        /* Ẩn thanh cuộn cho gọn gàng */
-        ::-webkit-scrollbar {
-            display: none !important;
+            justify-content: space-between !important;
+            align-items: center !important;
         }
     }
 </style>
