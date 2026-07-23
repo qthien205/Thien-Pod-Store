@@ -582,31 +582,61 @@
 
 <!-- CSS cho Popup Thông báo -->
 <style>
-    /* Biến tất cả các hàng, khối danh sách, voucher thành dạng trượt ngang trên điện thoại */
+    /* Ép khung trang ôm khít màn hình điện thoại, chống tràn trắng bên phải */
     @media screen and (max-width: 768px) {
-        /* Tìm đến các vùng chứa nhiều cột/khối ngang để bật tính năng cuộn */
-        div, section, .row, .container, .list-product, .voucher-list {
-            /* Nếu bạn muốn áp dụng cho mọi khối hàng ngang, hãy bỏ bớt giới hạn */
+        html, body {
+            width: 100% !important;
+            max-width: 100vw !important;
+            overflow-x: hidden !important;
+            margin: 0 !important;
+            padding: 0 !important;
         }
 
-        /* Thiết lập chuẩn cho thanh trượt ngang mượt mà */
-        .scroll-horizontal, [class*="row"], [class*="list"], [class*="grid"] {
+        /* 1. Biến phần danh sách Voucher thành trượt ngang */
+        .voucher-container, .voucher-list, .list-voucher {
+            display: flex !important;
+            flex-wrap: nowrap !important;
+            overflow-x: auto !important;
+            -webkit-overflow-scrolling: touch;
+            gap: 10px !important;
+            padding: 10px !important;
+            scroll-snap-type: x mandatory;
+        }
+        .voucher-container > div, .voucher-list > div {
+            flex: 0 0 80% !important;
+            max-width: 80% !important;
+            scroll-snap-align: start;
+        }
+
+        /* 2. Biến phần Danh mục sản phẩm thành trượt ngang */
+        .category-container, .categories, .list-category {
+            display: flex !important;
+            flex-wrap: nowrap !important;
+            overflow-x: auto !important;
+            -webkit-overflow-scrolling: touch;
+            gap: 10px !important;
+            padding: 10px !important;
+        }
+        .category-container > div, .categories > div {
+            flex: 0 0 30% !important;
+            max-width: 30% !important;
+        }
+
+        /* 3. Biến phần Sản phẩm nổi bật thành trượt ngang */
+        .product-grid, .product-list, .list-product {
             display: flex !important;
             flex-wrap: nowrap !important;
             overflow-x: auto !important;
             -webkit-overflow-scrolling: touch;
             gap: 12px !important;
-            scroll-snap-type: x mandatory;
+            padding: 10px !important;
+        }
+        .product-grid > div, .product-list > div, .list-product > div {
+            flex: 0 0 45% !important;
+            max-width: 45% !important;
         }
 
-        /* Giữ cố định từng khung bên trong để khi vuốt nó khựng lại từng mục cực kỳ mượt */
-        .scroll-horizontal > *, [class*="row"] > *, [class*="col-"], [class*="item"] {
-            flex: 0 0 75% !important; /* Mỗi khung chiếm khoảng 75 chiều rộng màn hình để dễ nhìn */
-            max-width: 75% !important;
-            scroll-snap-align: start;
-        }
-
-        /* Ẩn thanh cuộn ngang đi cho giao diện sạch đẹp như app */
+        /* Ẩn thanh cuộn cho gọn gàng */
         ::-webkit-scrollbar {
             display: none !important;
         }
