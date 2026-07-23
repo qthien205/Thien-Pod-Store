@@ -669,6 +669,29 @@
     /* Các đoạn CSS cũ của bạn ở bên dưới... */
     body { font-family: Arial, sans-serif; }
 
+    /* Chống tràn ngang và co giãn tối ưu trên điện thoại */
+    html, body {
+        max-width: 100%;
+        overflow-x: hidden;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    *, *:before, *:after {
+        box-sizing: inherit;
+    }
+
+    img, video, canvas, svg {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .product-container, .footer-container, .main-img-box {
+        max-width: 100% !important;
+        box-sizing: border-box;
+    }
+
 </style>
 
 <!-- JavaScript điều khiển hiệu ứng xuất hiện ngẫu nhiên -->
